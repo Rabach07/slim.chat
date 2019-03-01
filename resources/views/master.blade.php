@@ -17,7 +17,7 @@
     {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
 
     <!-- Styles -->
-    {{-- <link href="{{ mix('/css/app.css') }}" rel="stylesheet"> --}}
+    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 
     <!-- Chat -->
     <script>
@@ -36,34 +36,23 @@
 </head>
 <body>
     <div>
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+        <nav class="bg-green text-white">
+            <div class="container flex">
+                <a class="flex-1" href="{{ url('/') }}">
                     <i class="fas fa-fw fa-comment"></i>
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
+                <div>
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
+                    <ul class="list-reset flex">
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <li class="p-2">
+                                <a class="nav-link" href="{{ route('login') }}">Log in</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+                            <li class="p-2">
+                                <a class="nav-link" href="{{ route('register') }}">Sign up</a>
+                            </li>
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

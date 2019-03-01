@@ -14,4 +14,5 @@
 Auth::routes();
 
 Route::view('/', 'home');
-Route::view('/app/{page?}', 'app');
+Route::view('/{vue_capture?}', 'app')
+    ->where('vue_capture', '^(?!nova|horizon|telescope.*$).*');

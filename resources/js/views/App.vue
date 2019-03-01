@@ -40,19 +40,19 @@
                     <div class="font-bold mt-3 text-lg">Jack Cruden</div>
                 </div>
                 <div class="flex items-center p-4 border-b">
-                    <div class="flex-1">jackcruden@gmail.com</div>
+                    <div class="flex-1 truncate">jackcruden@gmail.com</div>
                     <div class="float-right select-none text-grey">
                         <i class="fas fa-at"></i>
                     </div>
                 </div>
                 <div class="flex items-center p-4 border-b">
-                    <div class="flex-1">Taranaki, New Zealand</div>
+                    <div class="flex-1 truncate">Taranaki, New Zealand</div>
                     <div class="float-right select-none text-grey">
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                 </div>
                 <div class="flex items-center p-4 border-b">
-                    <div class="flex-1">9:05pm, 28th February</div>
+                    <div class="flex-1 truncate">9:05pm, 28th February</div>
                     <div class="float-right select-none text-grey">
                         <i class="fas fa-clock"></i>
                     </div>
@@ -61,22 +61,28 @@
                 <div class="flex items-center border-b-2"></div>
 
                 <div class="items-center p-4 border-b">
-                    <div class="mb-2 text-xs text-grey font-semibold uppercase">
-                        <i class="fas fa-hashtag"></i> Number of Stores
+                    <div class="mb-2 text-xs text-grey font-semibold uppercase truncate">
+                        Number of Stores
                     </div>
-                    4
+                    <div class="truncate">
+                        4
+                    </div>
                 </div>
                 <div class="items-center p-4 border-b">
-                    <div class="mb-2 text-xs text-grey font-semibold uppercase">
-                        <i class="fas fa-hashtag"></i> Number of staff
+                    <div class="mb-2 text-xs text-grey font-semibold uppercase truncate">
+                        Number of staff
                     </div>
-                    23
+                    <div class="truncate">
+                        23
+                    </div>
                 </div>
                 <div class="items-center p-4 border-b">
-                    <div class="mb-2 text-xs text-grey font-semibold uppercase">
-                        <i class="fas fa-hashtag"></i> Member since
+                    <div class="mb-2 text-xs text-grey font-semibold uppercase truncate">
+                        Member since
                     </div>
-                    4th April 2017
+                    <div class="truncate">
+                        4th April 2017
+                    </div>
                 </div>
             </div>
         </div>

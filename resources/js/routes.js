@@ -13,8 +13,34 @@ let routes = [
     },
     {
         path: '/app/settings',
-        name: 'settings',
-        component: require('./views/Settings').default
+        component: require('./views/Settings').default,
+        children: [
+            {
+                path: 'appearance',
+                name: 'settings',
+                component: require('./views/settings/Appearance').default
+            },
+            {
+                path: 'behaviour',
+                name: 'settings.behaviour',
+                component: require('./views/settings/Behaviour').default
+            },
+            {
+                path: 'account',
+                name: 'settings.account',
+                component: require('./views/settings/Account').default
+            },
+            {
+                path: 'team',
+                name: 'settings.team',
+                component: require('./views/settings/Team').default
+            },
+            {
+                path: 'billing',
+                name: 'settings.billing',
+                component: require('./views/settings/Billing').default
+            },
+        ]
     },
     // {
     //     path: '*',
