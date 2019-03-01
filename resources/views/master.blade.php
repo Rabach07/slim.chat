@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css" integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous">
@@ -17,16 +17,20 @@
     {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
 
     <!-- Styles -->
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ mix('/css/app.css') }}" rel="stylesheet"> --}}
 
     <!-- Chat -->
     <script>
-        (function(d, w, s, f) {
-            s = d.createElement('script');
-            s.async = 1;
-            s.src = w;
+        window.slimchat = {
+            app: '12345'
+        };
+
+        (function(d, w, t, f) {
+            t = d.createElement('script');
+            t.async = 1;
+            t.src = w;
             f = d.getElementsByTagName('script')[0];
-            f.parentNode.insertBefore(s, f);
+            f.parentNode.insertBefore(t, f);
         })(document, '{{ mix('/js/widget.js') }}');
     </script>
 </head>

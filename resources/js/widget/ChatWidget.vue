@@ -1,8 +1,8 @@
 <template>
-    <div class="chat-container">
-        <div v-if="showConversation" class="chat-conversation">
-            <div class="chat-conversation-toolbar rounded-t-lg text-white font-bold">
-                <div class="flex-1 p-2">
+    <div class="c-container">
+        <div v-if="showConversation" class="c-conversation">
+            <div class="c-conversation-toolbar">
+                <div class="c-conversation-toolbar-title">
                     Jack from WeRoster
                 </div>
                 <div @click="toggleConversation()" class="text-white p-2 cursor-pointer">
@@ -10,13 +10,13 @@
                 </div>
             </div>
 
-            <div ref="chat-conversation" class="chat-conversation-content">
-                <div v-for="message in messages" class="chat-message" :class="message.sender == 'me' ? 'chat-message-sent' : 'chat-message-received'">
+            <div ref="c-conversation" class="c-conversation-content">
+                <div v-for="message in messages" class="c-message" :class="message.sender == 'me' ? 'c-message-sent' : 'c-message-received'">
                     {{ message.message }}
                 </div>
             </div>
 
-            <form class="chat-conversation-messagebar flex p-3">
+            <form class="c-conversation-messagebar flex p-3">
                 <div class="flex-1 mr-2">
                     <input type="text" v-model="message" class="c-input" placeholder="Type message..." />
                 </div>
@@ -26,10 +26,10 @@
             </form>
         </div>
 
-        <div @click="toggleConversation()" class="chat-bubble cursor-pointer">
+        <div @click="toggleConversation()" class="c-bubble cursor-pointer">
             <div class="flex-1 text-center text-4xl">
-                <i v-if="showConversation" class="fa fa-fw fa-times"></i>
-                <i v-if="!showConversation" class="fa fa-fw fa-support"></i>
+                <i v-if="showConversation" class="fas fa-fw fa-times"></i>
+                <i v-if="!showConversation" class="fas fa-fw fa-life-ring"></i>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
 
         data() {
             return {
-                showConversation: true,
+                showConversation: false,
                 message: '',
                 messages: [
                     {
@@ -102,8 +102,8 @@
             },
             scrollToBottom() {
                 this.$nextTick(() => {
-                    if (this.$refs['chat-conversation']) {
-                        this.$refs['chat-conversation'].scroll(0, 9999)
+                    if (this.$refs['c-conversation']) {
+                        this.$refs['c-conversation'].scroll(0, 9999)
                     }
                 })
             },
@@ -111,50 +111,87 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .c-input {
-        @apply .px-3 .py-2 .border-2 .w-full;
+        padding: 0.5rem 0.75rem;
+        border: 2px solid lightgrey;
+        width: 100%;
+        border-radius: 5px;
     }
     .c-button {
-        @apply .border-2;
+        border: 2px solid lightgrey;
+        padding: 0.5rem 0.75rem;
+        border-radius: 5px;
     }
 
-    .chat-container {
-        @apply .fixed .pin-r .pin-b .p-6;
+    .c-container {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        padding: 1.5rem;
 
-        .chat-message {
-            @apply .my-2 .px-2 .py-1;
-            @apply .rounded-lg;
+        font-family: 'Avenir', sans-serif;
+        font-size: 1rem;
+
+        .c-message {
+            margin: 0.5rem 0;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
         }
-        .chat-message-received {
-            @apply .text-left .mr-8 .bg-green .text-white;
+        .c-message-received {
+            text-align: left;
+            margin-right: 2rem;
+            background-color: green;
+            color: white;
         }
-        .chat-message-sent {
-            @apply .text-right .ml-8 .bg-grey-light;
+        .c-message-sent {
+            text-align: right;
+            margin-left: 2rem;
+            background-color: lightgrey;
         }
 
-        .chat-conversation {
-            @apply .mb-3;
-            @apply .rounded-lg .bg-white .shadow-md;
+        .c-conversation {
+            margin-bottom: 0.75rem;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12),
+            0 2px 4px 0 rgba(0,0,0,0.08);
 
-            .chat-conversation-toolbar {
-                @apply .bg-green .flex .shadow;
+            .c-conversation-toolbar {
+                background-color: green;
+                display: flex;
+                box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+                border-radius: 5px 5px 0 0;
+                color: white;
+                font-weight: bold;
+                .c-conversation-toolbar-title {
+                    flex: 1;
+                    padding: 0.5rem;
+                }
             }
-            .chat-conversation-content {
+            .c-conversation-content {
                 width: 300px;
                 height: 400px;
-                @apply .px-3 .mb-3 .overflow-y-scroll;
+                padding: 0 0.75rem;
+                overflow-y: scroll;
             }
-            .chat-conversation-messagebar {
-                @apply .flex;
+            .c-conversation-messagebar {
+                border-top: 1px solid lightgrey;
+                display: flex;
             }
         }
 
-        .chat-bubble {
+        .c-bubble {
             line-height: 1em;
-            @apply .float-right;
-            @apply .flex .items-center .w-16 .h-16 .rounded-full;
-            @apply .bg-green .text-white .shadow;
+            float: right;
+            display: flex;
+            align-items: center;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 9999px;
+            background-color: green;
+            color: white;
+            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
         }
     }
 </style>
