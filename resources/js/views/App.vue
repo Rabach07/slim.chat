@@ -7,7 +7,7 @@
             <div class="border-b">
                 <input v-model="conversationSearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
             </div>
-            <div class="overflow-y-scroll" style="height: calc(100vh - 65px)">
+            <div class="overflow-y-scroll" style="height: calc(100vh - 65px);">
                 <div v-for="conversation in conversationsFiltered" class="flex items-center p-4 border-b hover:bg-grey-lighter cursor-pointer">
                     <div class="flex-1" :class="conversation.read && 'font-bold'">
                         {{ conversation.user.name }}
@@ -27,7 +27,66 @@
 
         <!-- Middle -->
         <div class="flex-1">
-            content
+            <div class="overflow-y-scroll" style="height: calc(100vh - 113px)">
+                <div class="mx-3 my-2 flex items-end">
+                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-12 h-12 m-2 rounded-full" />
+
+                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg bg-grey-lighter">
+                        This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message.
+                    </div>
+                </div>
+
+                <div class="mx-3 my-2 flex items-end justify-end">
+                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg bg-green text-white">
+                        This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message.
+                    </div>
+
+                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-12 h-12 m-2 rounded-full" />
+                </div>
+
+                <div class="mx-3 my-2 flex items-end">
+                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-12 h-12 m-2 rounded-full" />
+
+                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg bg-grey-lighter">
+                        This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message.
+                    </div>
+                </div>
+
+                <div class="mx-3 my-2 flex items-end justify-end">
+                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg bg-green text-white">
+                        This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message.
+                    </div>
+
+                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-12 h-12 m-2 rounded-full" />
+                </div>
+
+                <div class="mx-3 my-2 flex items-end">
+                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-12 h-12 m-2 rounded-full" />
+
+                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg bg-grey-lighter">
+                        This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message.
+                    </div>
+                </div>
+
+                <div class="mx-3 my-2 flex items-end justify-end">
+                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg bg-green text-white">
+                        This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message.
+                    </div>
+
+                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-12 h-12 m-2 rounded-full" />
+                </div>
+            </div>
+            <div class="flex border-t p-2">
+                <div class="flex-1">
+                    <textarea class="block input focus:outline-none w-full p-4 leading-loose" rows="2" placeholder="Type message...">
+                    </textarea>
+                </div>
+                <div class="pl-2">
+                    <button class="button green">
+                        Send
+                    </button>
+                </div>
+            </div>
         </div>
 
         <!-- Right -->
