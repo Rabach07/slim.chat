@@ -5,7 +5,7 @@
         <!-- Left -->
         <div class="w-1/5 border-r h-screen">
             <div class="border-b">
-                <input v-model="conversationSearch" type="text" class="w-full p-4 leading-loose" placeholder="Search...">
+                <input v-model="conversationSearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
             </div>
             <div class="overflow-y-scroll" style="height: calc(100vh - 65px)">
                 <div v-for="conversation in conversationsFiltered" class="flex items-center p-4 border-b hover:bg-grey-lighter cursor-pointer">
@@ -33,7 +33,7 @@
         <!-- Right -->
         <div class="w-1/5 border-l h-screen">
             <div class="overflow-y-scroll h-screen">
-                <div class="p-4 border-b text-center">
+                <div class="p-4 border-b text-center select-none">
                     <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200"
                         class="w-24 h-24 rounded-full" /><br>
 
@@ -61,7 +61,7 @@
                 <div class="flex items-center border-b-2"></div>
 
                 <div class="items-center p-4 border-b">
-                    <div class="mb-2 text-xs text-grey font-semibold uppercase truncate">
+                    <div class="mb-2 text-xs text-grey font-semibold uppercase truncate select-none">
                         Number of Stores
                     </div>
                     <div class="truncate">
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="items-center p-4 border-b">
-                    <div class="mb-2 text-xs text-grey font-semibold uppercase truncate">
+                    <div class="mb-2 text-xs text-grey font-semibold uppercase truncate select-none">
                         Number of staff
                     </div>
                     <div class="truncate">
@@ -77,7 +77,7 @@
                     </div>
                 </div>
                 <div class="items-center p-4 border-b">
-                    <div class="mb-2 text-xs text-grey font-semibold uppercase truncate">
+                    <div class="mb-2 text-xs text-grey font-semibold uppercase truncate select-none">
                         Member since
                     </div>
                     <div class="truncate">

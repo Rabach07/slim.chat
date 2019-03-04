@@ -18,7 +18,7 @@
 
             <form class="c-conversation-messagebar flex p-3">
                 <div class="flex-1 mr-2">
-                    <input type="text" v-model="message" class="c-input" placeholder="Type message..." />
+                    <input type="text" v-model="message" class="c-input" maxlength="1024" placeholder="Type message..." />
                 </div>
                 <button @click.prevent="sendMessage()" :disabled="message == ''" class="c-button">
                     <i class="fa fa-paper-plane"></i>
@@ -37,7 +37,7 @@
 
 <script>
     export default {
-        props: [''],
+        props: ['app_id', 'user_id'],
 
         data() {
             return {
@@ -47,30 +47,6 @@
                     {
                         sender: 'Jack',
                         message: 'Hi! How can I help you today?'
-                    },
-                    {
-                        sender: 'me',
-                        message: 'Hi, I\'m running into an issue when I try to do something.'
-                    },
-                    {
-                        sender: 'Jack',
-                        message: 'No worries, what\'s the issue?'
-                    },
-                    {
-                        sender: 'me',
-                        message: 'Seems to be that when I try to publish the roster I get the spinning loading icon then nothing after that.'
-                    },
-                    {
-                        sender: 'Jack',
-                        message: 'Are there any error messages that popup? And does the loading icon eventually go away?'
-                    },
-                    {
-                        sender: 'me',
-                        message: 'Nope and nope. Only when I reload the page does it go away.'
-                    },
-                    {
-                        sender: 'Jack',
-                        message: 'Hmm, I\'ll check on this now and get back to you in a couple of minutes if that\'s ok.'
                     },
                     {
                         sender: 'me',
@@ -85,19 +61,8 @@
         },
 
         methods: {
-            sendMessage() {
-                this.messages.push({
-                    sender: 'me',
-                    message: this.message,
-                })
-
-                this.message = ''
-
-                this.scrollToBottom()
-            },
             toggleConversation() {
                 this.showConversation = !this.showConversation
-
                 this.scrollToBottom()
             },
             scrollToBottom() {
@@ -107,6 +72,36 @@
                     }
                 })
             },
+            sendMessage() {
+                axios.post('/messages', {
+                    app_id: this.app_id,
+                    user_id: this.user_id,
+                    message: this.message,
+                })
+                .then((response) => {
+                    this.message = ''
+                })
+
+                // this.messages.push({
+                //     sender: 'me',
+                //     message: this.message,
+                // })
+                // this.scrollToBottom()
+            },
+        },
+
+        created() {
+            console.log('ChatWidget created.')
+
+            Echo.channel('chat')
+            .listen('Message', event => {
+                console.log(event)
+            })
+        },
+
+        destroyed() {
+            console.log('ChatWidget destroyed.')
+            // Echo.leave('orders');
         }
     }
 </script>
@@ -171,7 +166,7 @@
             }
             .c-conversation-content {
                 width: 300px;
-                height: 400px;
+                max-height: 200px;
                 padding: 0 0.75rem;
                 overflow-y: scroll;
             }

@@ -13,6 +13,14 @@
 
 Auth::routes();
 
+// Pages
 Route::view('/', 'home');
+
+// Catch post-login/register
+Route::get('/home', function () {
+    return redirect('/app');
+});
+
+// App
 Route::view('/{vue_capture?}', 'app')
-    ->where('vue_capture', '^(?!nova|horizon|telescope.*$).*');
+    ->where('vue_capture', '^(?!nova|horizon|telescope|api|api.*$).*');

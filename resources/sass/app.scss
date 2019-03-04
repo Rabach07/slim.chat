@@ -65,13 +65,93 @@ html, body {
     color: #666666;
     font-family: 'Avenir', sans-serif;
     font-weight: 200;
-    height: 100vh;
-    margin: 0;
+    @apply .m-0 .h-screen;
+    @apply .bg-white;
 }
 
 a {
     @apply .text-grey-darkest .no-underline;
+
     &:hover, &:focus {
         @apply .text-black;
     }
+}
+
+button.button, a.button {
+    @apply .inline-block .py-2 .px-3;
+    @apply .text-lg .border-4 .rounded-lg;
+    @apply .select-none;
+    border-color: rgba(0, 0, 0, 0.1);
+
+    &.blue {
+        @apply .bg-blue .text-white;
+    }
+    &.green {
+        @apply .bg-green .text-white;
+    }
+    &.link {
+        @apply .text-grey-darkest;
+        border-color: rgba(0, 0, 0, 0.01);
+    }
+    &.orange {
+        @apply .bg-orange .text-white;
+    }
+    &.red {
+        @apply .bg-red .text-white;
+    }
+    &.white {
+        @apply .bg-white .text-grey-darkest;
+    }
+
+    &:focus {
+        @apply .outline-none;
+        border-color: rgba(0, 0, 0, 0.3);
+    }
+}
+
+form {
+    div.group {
+        @apply .mb-4;
+
+        p {
+            @apply .mt-1 .mb-0;
+            @apply .select-none;
+        }
+    }
+    div.actions {
+        @apply .text-right;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply .mb-2 .mt-5;
+    @apply .select-none;
+}
+
+input.input {
+    @apply .w-full .py-2 .px-3;
+    @apply .text-lg .border-4 .rounded-lg;
+
+    &:focus {
+        @apply .outline-none;
+        @apply .border-green;
+    }
+}
+
+label {
+    @apply .flex .block .mb-1 .font-bold;
+    @apply .select-none;
+
+    input[type="checkbox"] {
+        @apply .w-auto;
+    }
+}
+
+p {
+    @apply .my-3 .leading-normal;
+}
+
+.card {
+    @apply .p-3 .rounded-lg;
+    @apply .bg-white;
 }

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous">
 
     <!-- Scripts -->
-    {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
+    <script src="{{ mix('/js/app.js') }}" defer></script>
 
     <!-- Styles -->
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
@@ -22,7 +22,7 @@
     <!-- Chat -->
     <script>
         window.slimchat = {
-            app: '12345'
+            app_id: '12345'
         };
 
         (function(d, w, t, f) {
@@ -37,40 +37,64 @@
 <body>
     <div>
         <nav class="bg-green text-white">
-            <div class="container flex">
-                <a class="flex-1" href="{{ url('/') }}">
-                    <i class="fas fa-fw fa-comment"></i>
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+            <div class="container flex mx-auto">
+                <div class="flex-1 p-1">
+                    <a href="{{ url('/') }}" class="inline-block py-3 px-2 text-2xl text-white hover:text-white focus:text-white font-bold">
+                        <i class="fas fa-fw fa-comment"></i>
+                        {{ config('app.name') }}
+                    </a>
+                </div>
 
                 <div>
                     <!-- Right Side Of Navbar -->
                     <ul class="list-reset flex">
+                        <li class="p-2">
+                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-white hover:text-white hover:underline">
+                                Why Slim Chat?
+                            </a>
+                        </li>
+                        <li class="p-2">
+                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-white hover:text-white hover:underline">
+                                Pricing
+                            </a>
+                        </li>
+                        <li class="p-2">
+                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-white hover:text-white hover:underline">
+                                Blog
+                            </a>
+                        </li>
+                        <li class="p-2">
+                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-white hover:text-white hover:underline">
+                                Developers
+                            </a>
+                        </li>
                         @guest
                             <li class="p-2">
-                                <a class="nav-link" href="{{ route('login') }}">Log in</a>
+                                <a href="{{ route('login') }}" class="inline-block p-3 text-lg text-white hover:text-white hover:underline">
+                                    Log in
+                                </a>
                             </li>
                             <li class="p-2">
-                                <a class="nav-link" href="{{ route('register') }}">Sign up</a>
+                                <a href="{{ route('register') }}" class="button blue">
+                                    Start Free Trial
+                                </a>
                             </li>
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                            <li class="p-2">
+                                <a href="{{ url('/app') }}" class="button blue">
+                                    <i class="fas fa-fw fa-user-circle"></i>
+                                    {{ Auth::user()->name }}
+                                </a>
+                            </li>
+                                {{-- <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form> --}}
                         @endguest
                     </ul>
                 </div>
