@@ -36,10 +36,10 @@
 </head>
 <body>
     <div>
-        <nav class="bg-green text-white">
+        <nav class="bg-white text-green">
             <div class="container flex mx-auto">
                 <div class="flex-1 p-1">
-                    <a href="{{ url('/') }}" class="inline-block py-3 px-2 text-2xl text-white hover:text-white focus:text-white font-bold">
+                    <a href="{{ url('/') }}" class="inline-block py-3 px-2 text-2xl text-green hover:text-green focus:text-green font-bold">
                         <i class="fas fa-fw fa-comment"></i>
                         {{ config('app.name') }}
                     </a>
@@ -49,28 +49,28 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="list-reset flex">
                         <li class="p-2">
-                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-white hover:text-white hover:underline">
+                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline">
                                 Why Slim Chat?
                             </a>
                         </li>
                         <li class="p-2">
-                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-white hover:text-white hover:underline">
+                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline">
                                 Pricing
                             </a>
                         </li>
                         <li class="p-2">
-                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-white hover:text-white hover:underline">
+                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline">
                                 Blog
                             </a>
                         </li>
                         <li class="p-2">
-                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-white hover:text-white hover:underline">
+                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline">
                                 Developers
                             </a>
                         </li>
                         @guest
                             <li class="p-2">
-                                <a href="{{ route('login') }}" class="inline-block p-3 text-lg text-white hover:text-white hover:underline">
+                                <a href="{{ route('login') }}" class="inline-block p-3 text-lg text-grey-darkest hover:underline">
                                     Log in
                                 </a>
                             </li>
@@ -101,7 +101,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="pb-4">
             @yield('content')
         </main>
     </div>

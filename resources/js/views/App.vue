@@ -27,7 +27,7 @@
 
         <!-- Middle -->
         <div class="flex-1">
-            <div class="overflow-y-scroll" style="height: calc(100vh - 113px)">
+            <div class="overflow-y-scroll" style="height: calc(100vh - 81px)">
                 <div class="mx-3 my-2 flex items-end">
                     <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-12 h-12 m-2 rounded-full" />
 
@@ -47,29 +47,13 @@
                 <div class="mx-3 my-2 flex items-end">
                     <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-12 h-12 m-2 rounded-full" />
 
-                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg bg-grey-lighter">
+                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg rounded-bl-none bg-grey-lighter">
                         This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message.
                     </div>
                 </div>
 
                 <div class="mx-3 my-2 flex items-end justify-end">
-                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg bg-green text-white">
-                        This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message.
-                    </div>
-
-                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-12 h-12 m-2 rounded-full" />
-                </div>
-
-                <div class="mx-3 my-2 flex items-end">
-                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-12 h-12 m-2 rounded-full" />
-
-                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg bg-grey-lighter">
-                        This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message.
-                    </div>
-                </div>
-
-                <div class="mx-3 my-2 flex items-end justify-end">
-                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg bg-green text-white">
+                    <div class="w-3/4 inline-block m-2 p-3 rounded-lg rounded-br-none bg-green text-white">
                         This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message. This is a long message.
                     </div>
 
@@ -78,12 +62,13 @@
             </div>
             <div class="flex border-t p-2">
                 <div class="flex-1">
-                    <textarea class="block input focus:outline-none w-full p-4 leading-loose" rows="2" placeholder="Type message...">
+                    <textarea class="input block" rows="2" placeholder="Type message...">
                     </textarea>
                 </div>
                 <div class="pl-2">
-                    <button class="button green">
-                        Send
+                    <button class="button green h-full">
+                        Send<br>
+                        <span class="text-xs">&#8984; + Enter</span>
                     </button>
                 </div>
             </div>
@@ -114,6 +99,12 @@
                     <div class="flex-1 truncate">9:05pm, 28th February</div>
                     <div class="float-right select-none text-grey">
                         <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+                <div class="flex items-center p-4 border-b">
+                    <div class="flex-1 truncate">Chrome 72, MacBook Pro</div>
+                    <div class="float-right select-none text-grey">
+                        <i class="fas fa-laptop"></i>
                     </div>
                 </div>
 

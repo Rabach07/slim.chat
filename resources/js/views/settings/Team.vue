@@ -5,7 +5,14 @@
         </div>
 
         <div class="p-4">
-            This is the content.
+            <div class="flex border-b">
+                <div>
+                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="block w-8 h-8 m-2 rounded-full" />
+                </div>
+                <div class="flex-1 self-center">
+                    Jack Cruden
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -16,7 +23,7 @@
 
         data() {
             return {
-                //
+                team: [],
             }
         },
 

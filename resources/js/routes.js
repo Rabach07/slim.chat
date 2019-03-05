@@ -7,6 +7,11 @@ let routes = [
         component: require('./views/App').default
     },
     {
+        path: '/app/people',
+        name: 'people',
+        component: require('./views/People').default
+    },
+    {
         path: '/app/profile',
         name: 'profile',
         component: require('./views/Profile').default

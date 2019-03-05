@@ -29,7 +29,7 @@
         <div @click="toggleConversation()" class="c-bubble cursor-pointer">
             <div class="flex-1 text-center text-4xl">
                 <i v-if="showConversation" class="fas fa-fw fa-times"></i>
-                <i v-if="!showConversation" class="fas fa-fw fa-life-ring"></i>
+                <i v-else class="fas fa-fw fa-life-ring"></i>
             </div>
         </div>
     </div>

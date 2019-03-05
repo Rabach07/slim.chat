@@ -6,7 +6,7 @@
                 Chat
             </div>
         </router-link>
-        <router-link :to="{ name: 'profile' }">
+        <router-link :to="{ name: 'people' }">
             <div class="mb-8 cursor-pointer">
                 <i class="fas fa-2x fa-users mb-2"></i><br>
                 People
