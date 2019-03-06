@@ -3,7 +3,6 @@
 use BeyondCode\LaravelWebSockets\Dashboard\Http\Middleware\Authorize;
 
 return [
-
     /*
      * This package comes with multi tenancy out of the box. Here you can
      * configure the different apps that can use the webSockets server.
@@ -13,12 +12,12 @@ return [
      */
     'apps' => [
         [
-            'id' => env('PUSHER_APP_ID'),
-            'name' => env('APP_NAME'),
-            'key' => env('PUSHER_APP_KEY'),
-            'secret' => env('PUSHER_APP_SECRET'),
+            'id'                     => env('PUSHER_APP_ID'),
+            'name'                   => env('APP_NAME'),
+            'key'                    => env('PUSHER_APP_KEY'),
+            'secret'                 => env('PUSHER_APP_SECRET'),
             'enable_client_messages' => false,
-            'enable_statistics' => true,
+            'enable_statistics'      => false,
         ],
     ],
 
@@ -36,7 +35,6 @@ return [
      * Leave this empty if you want to accept requests from all hosts.
      */
     'allowed_origins' => [
-        //
     ],
 
     /*

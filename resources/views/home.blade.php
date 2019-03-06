@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-    <div class="py-8 bg-grey-lightest">
+    <div class="py-8">
         <div class="container mx-auto flex items-center">
             <div class="w-1/2 mr-16">
                 <h1 class="text-5xl">Chat marketing & support for makers.</h1>
@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="py-8">
+    <div class="py-8 bg-grey-lightest">
         <div class="container mx-auto text-center">
             <h1 class="text-5xl">Engage Website Visitors</h1>
             <span class="text-2xl">Turn visitors into leads with conversational marketing</span>

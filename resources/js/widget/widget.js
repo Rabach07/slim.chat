@@ -3,7 +3,7 @@
  */
 var widgetDiv = document.createElement('div')
 widgetDiv.id = 'chat-widget'
-widgetDiv.innerHTML = '<chat-widget v-if="ready" app_id="app_id" user_id="user_id" />'
+widgetDiv.innerHTML = '<chat-widget v-if="ready" :app_id="app_id" :visitor_id="visitor_id" />'
 document.body.appendChild(widgetDiv)
 
 // TODO Put the whole chat window in an iFrame
@@ -48,7 +48,7 @@ const app = new Vue({
     data: {
         ready: false,
         app_id: window.slimchat,
-        user_id: null,
+        visitor_id: null,
     },
 
     created() {
@@ -57,10 +57,10 @@ const app = new Vue({
         // app_id
         this.app_id = window.slimchat.app_id
 
-        // user_id
-        this.user_id = localStorage.getItem('slimchat.user_id')
-        if (this.user_id == null) {
-            localStorage.setItem('slimchat.user_id', uuidv4())
+        // visitor_id
+        this.visitor_id = localStorage.getItem('slimchat.visitor_id')
+        if (this.visitor_id == null) {
+            localStorage.setItem('slimchat.visitor_id', uuidv4())
         }
 
         this.ready = true

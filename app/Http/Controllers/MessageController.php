@@ -2,17 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Business;
+use App\Conversation;
+use App\Events\NewMessage;
+use App\Message;
+use App\Visitor;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class MessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
+        $conversation = Conversation::findOrFail($request->conversation_id);
+
+        $this->authorize('view', $conversation->business);
+
+        return QueryBuilder::for(Message::class)
+            ->whereConversationId($conversation->id)
+            ->defaultSort('-created_at')
+            ->paginate($request->limit ?? 25);
     }
 
     /**
@@ -24,9 +33,40 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'message' => 'required|max:1024',
-        ]);
+        if (! $request->visitor_id) {
+            $conversation = Conversation::findOrFail($request->conversation_id);
+
+            $this->authorize('update', $conversation->business);
+
+            $message = new Message([
+                'conversation_id' => $conversation->id,
+                'from_user_id'    => auth()->user()->id,
+                'message'         => $request->message,
+            ]);
+        } else {
+            // TODO Authorise visitor
+
+            // Get the Business
+            $business = Business::byAppId($request->app_id);
+            if (! $business) {
+                return abort(404, 'Business does not exist.');
+            }
+
+            // Get the visitor
+            $visitor = Visitor::get($business->id, $request->visitor_id);
+
+            // Get the conversation
+            $conversation = Conversation::get($business->id, $visitor->id);
+
+            $message = new Message([
+                'conversation_id' => $conversation->id,
+                'message'         => $request->message,
+            ]);
+        }
+
+        event(new NewMessage($message));
+
+        return $message;
     }
 
     /**

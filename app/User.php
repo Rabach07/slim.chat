@@ -37,8 +37,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function business()
+    public function businesses()
     {
-        return $this->hasOne(Business::class, 'owner_id');
+        return $this->hasMany(Business::class, 'owner_id');
     }
 }

@@ -2,59 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Business;
 use Illuminate\Http\Request;
 
 class BusinessController extends Controller
 {
-    /**
-     * Display the business.
-     *
-     * @return \App\Business
-     */
-    public function show()
+    public function index(Request $request)
     {
-        return auth()->user()->business;
+        return response()->json([
+            'data' => auth()->user()->businesses,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function show(Request $request, Business $business)
+    {
+        $this->authorize('view', $business);
+
+        return response()->json([
+            'data' => $business,
+        ]);
+    }
+
     public function store(Request $request)
     {
+        $this->authorize('create', $business);
+
+        // TODO Store business
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function update(Request $request, Business $business)
     {
+        $this->authorize('update', $business);
+
         $request->validate([
             'name' => 'required|max:255',
         ]);
 
-        $business = auth()->user()->business;
         $business->update($request->all());
 
-        return $business;
+        return response()->json([
+            'data' => $business,
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request, Business $business)
     {
+        // TODO Delete business
     }
 }

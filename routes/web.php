@@ -22,5 +22,4 @@ Route::get('/home', function () {
 });
 
 // App
-Route::view('/{vue_capture?}', 'app')
-    ->where('vue_capture', '^(?!nova|horizon|telescope|api|api.*$).*');
+Route::view('/app{any}', 'app')->where('any', '.*');

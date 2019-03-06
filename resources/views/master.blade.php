@@ -38,7 +38,7 @@
     <div>
         <nav class="bg-white text-green">
             <div class="container flex mx-auto">
-                <div class="flex-1 p-1">
+                <div class="flex-1 py-1 px-2">
                     <a href="{{ url('/') }}" class="inline-block py-3 px-2 text-2xl text-green hover:text-green focus:text-green font-bold">
                         <i class="fas fa-fw fa-comment"></i>
                         {{ config('app.name') }}

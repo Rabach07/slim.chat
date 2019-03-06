@@ -37,27 +37,21 @@
 
 <script>
     export default {
-        props: ['app_id', 'user_id'],
+        props: ['app_id', 'visitor_id'],
 
         data() {
             return {
                 showConversation: false,
                 message: '',
-                messages: [
-                    {
-                        sender: 'Jack',
-                        message: 'Hi! How can I help you today?'
-                    },
-                    {
-                        sender: 'me',
-                        message: 'Yep that\'s all good in the hood.'
-                    },
-                ],
+                messages: [],
+                conversation: {},
             }
         },
 
         computed: {
-            //
+            activeConversation() {
+                // return conversations[0];
+            }
         },
 
         methods: {
@@ -73,35 +67,40 @@
                 })
             },
             sendMessage() {
-                axios.post('/messages', {
+                axios.post('/api/messages', {
                     app_id: this.app_id,
-                    user_id: this.user_id,
+                    visitor_id: this.visitor_id,
                     message: this.message,
                 })
-                .then((response) => {
+                .then(response => {
                     this.message = ''
                 })
-
-                // this.messages.push({
-                //     sender: 'me',
-                //     message: this.message,
-                // })
-                // this.scrollToBottom()
             },
+            fetchConversations() {
+                axios.get('/api/conversations', { params: {
+                    app_id: this.app_id,
+                    visitor_id: this.visitor_id
+                }})
+                .then(response => {
+                    this.conversation = response.data
+                })
+            }
         },
 
         created() {
             console.log('ChatWidget created.')
 
-            Echo.channel('chat')
-            .listen('Message', event => {
-                console.log(event)
+            Echo.channel('conversations.1')
+            .listen('NewMessage', event => {
+                this.messages.push(event.message)
+                this.scrollToBottom()
             })
         },
 
         destroyed() {
             console.log('ChatWidget destroyed.')
-            // Echo.leave('orders');
+
+            Echo.leave('conversations.1');
         }
     }
 </script>
@@ -114,7 +113,9 @@
         border-radius: 5px;
     }
     .c-button {
-        border: 2px solid lightgrey;
+        border: 2px solid darkgreen;
+        background-color: green;
+        color: white;
         padding: 0.5rem 0.75rem;
         border-radius: 5px;
     }
