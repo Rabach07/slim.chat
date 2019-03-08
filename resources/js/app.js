@@ -17,15 +17,33 @@ import router from './routes'
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-const files = require.context('./', true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+// const files = require.context('./', true, /\.vue$/i)
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+/*
+ * Global Vue properties
+ * e.g. this.$user
  */
+Vue.prototype.$user = window.slimchat.user
+Vue.prototype.$business = window.slimchat.business
 
+/*
+ * Import third-party functions for global addons (filters, etc.)
+ */
+var startCase = require('lodash/startCase')
+var camelCase = require('lodash/camelCase')
+
+/*
+ * Register filters
+ */
+Vue.filter('title', function (value) {
+    if (! value) return ''
+    return _.startCase(_.camelCase(value))
+})
+
+/*
+ * Create the app!
+ */
 const app = new Vue({
     el: '#app',
 

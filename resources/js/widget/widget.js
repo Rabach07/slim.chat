@@ -39,7 +39,14 @@ window.Echo = new Echo({
 /*
  * Vue
  */
+
 window.Vue = require('vue')
+
+Vue.filter('nl2br', function (value) {
+    if (!value) return ''
+    return value.replace(/(?:\r\n|\r|\n)/g, '<br>')
+})
+
 Vue.component('chat-widget', require('./ChatWidget.vue').default)
 
 const app = new Vue({

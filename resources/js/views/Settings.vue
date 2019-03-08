@@ -1,15 +1,18 @@
 <template>
     <div class="flex">
-        <navigation />
-
         <div class="w-1/5 border-r h-screen overflow-y-scroll select-none">
             <div class="border-b p-4 mt-4">
                 <h1 class="mb-0">Settings</h1>
             </div>
+            <router-link :to="{ name: 'settings' }">
+                <div class="p-4 border-b hover:bg-grey-lighter cursor-pointer">
+                    Data
+                </div>
+            </router-link>
             <div class="py-1 px-4 w-full bg-grey-dark text-white font-semibold">
                 <i class="fas fa-fw fa-window-restore"></i> Widget
             </div>
-            <router-link :to="{ name: 'settings' }">
+            <router-link :to="{ name: 'appearance' }">
                 <div class="p-4 border-b hover:bg-grey-lighter cursor-pointer">
                     Appearance
                 </div>
@@ -61,6 +64,6 @@
 
         methods: {
             //
-        }
+        },
     }
 </script>

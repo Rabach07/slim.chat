@@ -37,9 +37,9 @@
 
         methods: {
             fetchBusiness() {
-                axios.get('/api/business')
+                axios.get('/api/businesses/' + this.$business.id)
                 .then(response => {
-                    this.business = response.data
+                    this.business = response.data.data
                 })
             },
             saveBusiness() {

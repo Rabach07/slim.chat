@@ -11,9 +11,8 @@
             </div>
 
             <div ref="c-conversation" class="c-conversation-content">
-                <div v-for="message in messages" class="c-message" :class="message.sender == 'me' ? 'c-message-sent' : 'c-message-received'">
-                    {{ message.message }}
-                </div>
+                <textarea v-for="message in messages"
+                    class="c-message" :class="message.from_user_id ? 'c-message-received' : 'c-message-sent'" readonly>{{ message.message }}</textarea>
             </div>
 
             <form class="c-conversation-messagebar flex p-3">
@@ -92,6 +91,7 @@
 
             Echo.channel('conversations.1')
             .listen('NewMessage', event => {
+                console.log(event)
                 this.messages.push(event.message)
                 this.scrollToBottom()
             })
@@ -106,6 +106,10 @@
 </script>
 
 <style lang="scss" scoped>
+    .c-container {
+        --brand: #38c172;
+    }
+
     .c-input {
         padding: 0.5rem 0.75rem;
         border: 2px solid lightgrey;
@@ -113,8 +117,8 @@
         border-radius: 5px;
     }
     .c-button {
-        border: 2px solid darkgreen;
-        background-color: green;
+        border: 2px solid rgba(0, 0, 0, 0.1);
+        background-color: var(--brand);
         color: white;
         padding: 0.5rem 0.75rem;
         border-radius: 5px;
@@ -137,13 +141,13 @@
         .c-message-received {
             text-align: left;
             margin-right: 2rem;
-            background-color: green;
-            color: white;
+            background-color: lightgrey;
         }
         .c-message-sent {
             text-align: right;
             margin-left: 2rem;
-            background-color: lightgrey;
+            background-color: var(--brand);
+            color: white;
         }
 
         .c-conversation {
@@ -154,7 +158,7 @@
             0 2px 4px 0 rgba(0,0,0,0.08);
 
             .c-conversation-toolbar {
-                background-color: green;
+                background-color: var(--brand);
                 display: flex;
                 box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
                 border-radius: 5px 5px 0 0;
@@ -185,7 +189,7 @@
             width: 4rem;
             height: 4rem;
             border-radius: 9999px;
-            background-color: green;
+            background-color: var(--brand);
             color: white;
             box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
         }

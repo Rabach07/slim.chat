@@ -20,7 +20,7 @@ class MessageController extends Controller
 
         return QueryBuilder::for(Message::class)
             ->whereConversationId($conversation->id)
-            ->defaultSort('-created_at')
+            ->defaultSort('created_at')
             ->paginate($request->limit ?? 25);
     }
 
@@ -38,7 +38,7 @@ class MessageController extends Controller
 
             $this->authorize('update', $conversation->business);
 
-            $message = new Message([
+            $message = Message::create([
                 'conversation_id' => $conversation->id,
                 'from_user_id'    => auth()->user()->id,
                 'message'         => $request->message,
@@ -58,7 +58,7 @@ class MessageController extends Controller
             // Get the conversation
             $conversation = Conversation::get($business->id, $visitor->id);
 
-            $message = new Message([
+            $message = Message::create([
                 'conversation_id' => $conversation->id,
                 'message'         => $request->message,
             ]);

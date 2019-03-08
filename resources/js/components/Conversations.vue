@@ -4,7 +4,7 @@
             <input v-model="conversationSearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
         </div>
         <div class="overflow-y-scroll" style="height: calc(100vh - 65px);">
-            <div v-for="conversation in conversationsFiltered" @click="selected(conversation.id)" class="flex items-center p-4 border-b hover:bg-grey-lighter cursor-pointer" :class="selectedConversation == conversation.id ? 'bg-grey-lighter' : ''">
+            <div v-for="conversation in conversationsFiltered" @click="selected(conversation)" class="flex items-center p-4 border-b hover:bg-grey-lighter cursor-pointer" :class="selectedConversation == conversation.id ? 'bg-grey-lighter' : ''">
                 <div class="flex-1">
                     {{ conversation.name }}
                 </div>
@@ -49,17 +49,17 @@
             fetchConversations() {
                 axios.get('/api/conversations', {
                     params: {
-                        business_id: 1
+                        business_id: this.$business.id
                     }
                 })
                 .then(response => {
                     this.conversations = response.data.data
                 })
             },
-            selected(conversationId) {
-                this.selectedConversation = conversationId
+            selected(conversation) {
+                this.selectedConversation = conversation
 
-                this.$emit('selected', conversationId)
+                this.$emit('selected', conversation)
             }
         },
 

@@ -41,4 +41,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Business::class, 'owner_id');
     }
+
+    public function getSettingsAttribute()
+    {
+        $settings = Setting::whereUserId($this->id)->get();
+
+        return $settings->pluck('value', 'name');
+    }
 }

@@ -18,6 +18,15 @@
 
     <!-- Styles -->
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+
+    <script>
+        (function() {
+            window.slimchat = {
+                business: {!! $business !!},
+                user: {!! $user !!}
+            };
+        })();
+    </script>
 </head>
 <body>
     <div id="app">

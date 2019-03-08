@@ -1,7 +1,5 @@
 <template>
     <div class="flex">
-        <navigation />
-
         <div class="flex-1 h-screen overflow-y-scroll">
             <div class="border-b p-4 mt-4">
                 <h1 class="mb-0">Profile</h1>

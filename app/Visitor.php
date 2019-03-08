@@ -9,6 +9,10 @@ class Visitor extends Model
 {
     protected $fillable = ['business_id', 'uuid', 'external_id'];
 
+    protected $casts = [
+        'business_id' => 'integer',
+    ];
+
     public function business()
     {
         return $this->belongsTo(Business::class);
@@ -44,7 +48,7 @@ class Visitor extends Model
      *
      * @return App\Visitor
      */
-    public static function get(int $business_id, string $uuid): ?Visitor
+    public static function get(int $business_id, string $uuid = null): ?Visitor
     {
         if (! $uuid) {
             $uuid = Str::uuid();
@@ -54,5 +58,12 @@ class Visitor extends Model
             'business_id' => $business_id,
             'uuid'        => $uuid,
         ]);
+    }
+
+    public function getPropsAttribute()
+    {
+        $properties = $this->properties;
+
+        return $properties->pluck('value', 'name');
     }
 }

@@ -4,49 +4,61 @@ let routes = [
     {
         path: '/app',
         name: 'app',
-        component: require('./views/App').default
-    },
-    {
-        path: '/app/people',
-        name: 'people',
-        component: require('./views/People').default
-    },
-    {
-        path: '/app/profile',
-        name: 'profile',
-        component: require('./views/Profile').default
-    },
-    {
-        path: '/app/settings',
-        component: require('./views/Settings').default,
+        component: require('./views/App').default,
         children: [
             {
-                path: 'appearance',
-                name: 'settings',
-                component: require('./views/settings/Appearance').default
+                path: '/app/chat',
+                name: 'chat',
+                component: require('./views/Chat').default
             },
             {
-                path: 'behaviour',
-                name: 'settings.behaviour',
-                component: require('./views/settings/Behaviour').default
+                path: '/app/people',
+                name: 'people',
+                component: require('./views/People').default
             },
             {
-                path: 'account',
-                name: 'settings.account',
-                component: require('./views/settings/Account').default
+                path: '/app/profile',
+                name: 'profile',
+                component: require('./views/Profile').default
             },
             {
-                path: 'team',
-                name: 'settings.team',
-                component: require('./views/settings/Team').default
-            },
-            {
-                path: 'billing',
-                name: 'settings.billing',
-                component: require('./views/settings/Billing').default
+                path: '/app/settings',
+                component: require('./views/Settings').default,
+                children: [
+                    {
+                        path: 'data',
+                        name: 'settings',
+                        component: require('./views/settings/Data').default
+                    },
+                    {
+                        path: 'appearance',
+                        name: 'appearance',
+                        component: require('./views/settings/Appearance').default
+                    },
+                    {
+                        path: 'behaviour',
+                        name: 'settings.behaviour',
+                        component: require('./views/settings/Behaviour').default
+                    },
+                    {
+                        path: 'account',
+                        name: 'settings.account',
+                        component: require('./views/settings/Account').default
+                    },
+                    {
+                        path: 'team',
+                        name: 'settings.team',
+                        component: require('./views/settings/Team').default
+                    },
+                    {
+                        path: 'billing',
+                        name: 'settings.billing',
+                        component: require('./views/settings/Billing').default
+                    },
+                ]
             },
         ]
-    },
+    }
     // {
     //     path: '*',
     //     name: '404',

@@ -22,4 +22,10 @@ Route::get('/home', function () {
 });
 
 // App
-Route::view('/app{any}', 'app')->where('any', '.*');
+Route::get('/app{any}', function () {
+    $business = App\Business::find(1);
+    $business->settings = $business->settings;
+    $user = auth()->user();
+
+    return view('app', compact('business', 'user'));
+})->where('any', '.*');

@@ -13,6 +13,8 @@ class Conversation extends Model
     protected $fillable = ['business_id', 'visitor_id', 'status'];
 
     protected $casts = [
+        'business_id' => 'integer',
+        'visitor_id'  => 'integer',
         'status'      => 'integer',
     ];
 

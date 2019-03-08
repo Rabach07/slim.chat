@@ -1,5 +1,5 @@
 <template>
-    <div class="flex border-t p-2">
+    <div class="flex border-t border-r p-2">
         <div class="flex-1">
             <textarea v-model="message" @keydown.meta.enter.exact.prevent="sendMessage()"
                 class="input block" rows="2" placeholder="Type message...">
@@ -16,7 +16,7 @@
 
 <script>
     export default {
-        props: ['conversation_id'],
+        props: ['conversation'],
 
         data() {
             return {
@@ -27,7 +27,7 @@
         methods: {
             sendMessage() {
                 axios.post('/api/messages/', {
-                    conversation_id: this.conversation_id,
+                    conversation_id: this.conversation.id,
                     message: this.message,
                 })
                 .then(response => {
