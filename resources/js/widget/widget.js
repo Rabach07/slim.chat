@@ -33,7 +33,7 @@ window.Echo = new Echo({
     wsHost: process.env.MIX_PUSHER_WS_HOST,
     wsPort: process.env.MIX_PUSHER_WS_PORT,
     disableStats: true,
-    encrypted: false, // true
+    encrypted: process.env.MIX_PUSHER_ENCRYPTED
 })
 
 /*
