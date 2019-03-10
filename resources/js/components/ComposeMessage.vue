@@ -1,8 +1,8 @@
 <template>
-    <div class="flex border-t border-r p-2">
+    <div class="flex-no-shrink flex border-t p-2">
         <div class="flex-1">
-            <textarea v-model="message" @keydown.meta.enter.exact.prevent="sendMessage()"
-                class="input block" rows="2" placeholder="Type message...">
+            <textarea ref="compose-message-input" v-model="message" @keydown.meta.enter.exact.prevent="sendMessage()"
+                class="input block leading-normal" placeholder="Type message...">
             </textarea>
         </div>
         <div class="pl-2">
@@ -24,6 +24,12 @@
             }
         },
 
+        watch: {
+            message(newMessage, oldMessage) {
+                this.setInputHeight()
+            }
+        },
+
         methods: {
             sendMessage() {
                 axios.post('/api/messages/', {
@@ -32,8 +38,17 @@
                 })
                 .then(response => {
                     this.message = ''
+                    this.setInputHeight()
                 })
             },
+            setInputHeight() {
+                this.$nextTick(() => {
+                    this.$refs['compose-message-input'].style.height = '70px'
+                    let height = this.$refs['compose-message-input'].scrollHeight
+                    height = Math.min(Math.max(height, 70), 200)
+                    this.$refs['compose-message-input'].style.height = (height + 8) + 'px'
+                })
+            }
         }
     }
 </script>

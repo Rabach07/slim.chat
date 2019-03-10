@@ -2,7 +2,7 @@
     <div class="flex h-screen">
         <conversations @selected="conversationSelected" />
 
-        <div class="flex-1">
+        <div class="flex-1 h-screen flex flex-col border-r">
             <conversation :conversation="selectedConversation" />
 
             <compose-message v-if="selectedConversation" :conversation="selectedConversation" />

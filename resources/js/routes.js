@@ -7,6 +7,10 @@ let routes = [
         component: require('./views/App').default,
         children: [
             {
+                path: '/app',
+                redirect: '/app/chat'
+            },
+            {
                 path: '/app/chat',
                 name: 'chat',
                 component: require('./views/Chat').default
