@@ -46,9 +46,8 @@ Route::apiResource('conversations', 'ConversationController');
 Route::apiResource('messages', 'MessageController');
 
 // Visitor Actions
-Route::get('announce', function () {
-    $visitorUuid = 'c60f3c4a-55d4-4086-85b5-4a91eb7271db';
-    $visitor = App\Visitor::get(1, $visitorUuid);
+Route::get('announce/{uuid?}', function ($uuid = null) {
+    $visitor = App\Visitor::get(1, $uuid);
 
     // Device info
     $agent = new Jenssegers\Agent\Agent();
@@ -67,7 +66,11 @@ Route::get('announce', function () {
     App\Property::set($visitor->id, 'ip', $geo->ip);
     App\Property::set($visitor->id, 'timezone', $geo->timezone);
 
-    return $visitor->props;
+    return response()->json([
+        'data' => [
+            'uuid' => $visitor->uuid,
+        ],
+    ]);
 });
 
 // Route::get('import', function () {

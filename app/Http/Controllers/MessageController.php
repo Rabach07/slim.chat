@@ -16,12 +16,21 @@ class MessageController extends Controller
     {
         $conversation = Conversation::findOrFail($request->conversation_id);
 
-        $this->authorize('view', $conversation->business);
+        if (! $request->visitor_uuid) {
+            $this->authorize('view', $conversation->business);
 
-        return QueryBuilder::for(Message::class)
-            ->whereConversationId($conversation->id)
-            ->defaultSort('created_at')
-            ->paginate($request->limit ?? 25);
+            return QueryBuilder::for(Message::class)
+                ->whereConversationId($conversation->id)
+                ->defaultSort('-created_at')
+                ->paginate($request->limit ?? 25);
+        } else {
+            $visitor = Visitor::findByUuid($request->visitor_uuid);
+
+            return QueryBuilder::for(Message::class)
+                ->whereConversationId($conversation->id)
+                ->defaultSort('-created_at')
+                ->paginate($request->limit ?? 25);
+        }
     }
 
     /**
@@ -33,7 +42,7 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        if (! $request->visitor_id) {
+        if (! $request->visitor_uuid) {
             $conversation = Conversation::findOrFail($request->conversation_id);
 
             $this->authorize('update', $conversation->business);
@@ -47,16 +56,21 @@ class MessageController extends Controller
             // TODO Authorise visitor
 
             // Get the Business
-            $business = Business::byAppId($request->app_id);
+            $business = Business::findByAppId($request->app_id);
             if (! $business) {
                 return abort(404, 'Business does not exist.');
             }
 
             // Get the visitor
-            $visitor = Visitor::get($business->id, $request->visitor_id);
+            $visitor = Visitor::get($business->id, $request->visitor_uuid);
 
             // Get the conversation
-            $conversation = Conversation::get($business->id, $visitor->id);
+            if ($request->conversation_id) {
+                $conversation = Conversation::find($request->conversation_id);
+                if (! $conversation) {
+                    $conversation = Conversation::get($business->id, $visitor->id);
+                }
+            }
 
             $message = Message::create([
                 'conversation_id' => $conversation->id,

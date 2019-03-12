@@ -21,6 +21,10 @@ Route::get('/home', function () {
     return redirect('/app');
 });
 
+// Load widget iframes
+Route::view('widget/bubble', 'widget-bubble');
+Route::view('widget/window', 'widget-window');
+
 // App
 Route::get('/app{any}', function () {
     $business = App\Business::find(1);

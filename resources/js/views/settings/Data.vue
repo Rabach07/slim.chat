@@ -105,7 +105,7 @@
                     value: this.fixedProperties.join(',')
                 })
                 .then(response => {
-                    console.log(response.data)
+                    this.$toasted.global.saved()
                 })
             }
         },

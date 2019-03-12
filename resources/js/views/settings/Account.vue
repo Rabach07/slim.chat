@@ -43,11 +43,13 @@
                 })
             },
             saveBusiness() {
-                axios.post('/api/business', {
+                axios.put('/api/businesses/' + this.$business.id, {
                     name: this.business.name
                 })
                 .then(response => {
-                    this.business = response.data
+                    this.business = response.data.data
+
+                    this.$toasted.global.saved()
                 })
             }
         },

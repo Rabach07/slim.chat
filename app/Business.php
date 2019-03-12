@@ -23,7 +23,7 @@ class Business extends Model
         return $this->hasMany(Conversation::class);
     }
 
-    public static function byAppId(string $app_id): ?Business
+    public static function findByAppId(string $app_id): ?Business
     {
         return Business::whereAppId($app_id)->first();
     }

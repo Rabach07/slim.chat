@@ -39,7 +39,7 @@
 
             <div v-for="property in propertiesFiltered" class="items-center p-4 border-b">
                 <div class="mb-2 text-xs text-grey font-semibold uppercase truncate select-none">
-                    {{ property.name }}
+                    {{ property.name | title }}
                 </div>
                 <div class="truncate">
                     {{ property.value }}
@@ -75,7 +75,8 @@
         computed: {
             propertiesFiltered() {
                 return filter(this.properties, property => {
-                    return property.name.toLowerCase().includes(this.propertySearch.toLowerCase())
+                    const combined = property.name.toLowerCase() + ' ' + property.value.toLowerCase()
+                    return combined.includes(this.propertySearch)
                 })
             }
         },

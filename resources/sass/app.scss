@@ -69,6 +69,17 @@ html, body {
     @apply .bg-white;
 }
 
+.toasted-container {
+    font-weight: bold !important;
+    top: 15px !important;
+    right: 20px !important;
+}
+
+.toasted {
+    border: 4px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 999px !important;
+}
+
 a {
     @apply .text-grey-darkest .no-underline;
 

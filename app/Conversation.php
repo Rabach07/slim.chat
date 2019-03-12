@@ -18,7 +18,7 @@ class Conversation extends Model
         'status'      => 'integer',
     ];
 
-    protected $appends = ['name'];
+    protected $appends = ['name', 'subject', 'last_active', 'most_recent_message'];
 
     public function business()
     {
@@ -65,5 +65,28 @@ class Conversation extends Model
     public function getNameAttribute()
     {
         return 'Visitor #'.$this->id;
+    }
+
+    public function getSubjectAttribute()
+    {
+        return $this->messages()
+            ->orderBy('created_at')
+            ->first()
+            ->message;
+    }
+
+    public function getLastActiveAttribute()
+    {
+        return $this->messages()
+            ->orderBy('created_at', 'desc')
+            ->first()
+            ->created_at;
+    }
+
+    public function getMostRecentMessageAttribute()
+    {
+        return $this->messages()
+            ->orderBy('created_at', 'desc')
+            ->first();
     }
 }

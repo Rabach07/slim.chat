@@ -1,17 +1,7 @@
 /**
- * Create widgetDiv
+ * Grab settings
  */
-var widgetDiv = document.createElement('div')
-widgetDiv.id = 'chat-widget'
-widgetDiv.innerHTML = '<chat-widget v-if="ready" :app_id="app_id" :visitor_id="visitor_id" />'
-document.body.appendChild(widgetDiv)
-
-// TODO Put the whole chat window in an iFrame
-
-/*
- * UUID
- */
-const uuidv4 = require('uuid/v4')
+window.slimchat = window.top.slimchat
 
 /*
  * Axios
@@ -22,40 +12,58 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 /*
  * Laravel Echo
  */
-
 import Echo from 'laravel-echo'
-
 window.Pusher = require('pusher-js')
-
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
     wsHost: process.env.MIX_PUSHER_WS_HOST,
     wsPort: process.env.MIX_PUSHER_WS_PORT,
     disableStats: true,
-    encrypted: process.env.MIX_PUSHER_ENCRYPTED
+    encrypted: false
 })
+
+/*
+ * Third-party
+ */
+var distanceInWordsStrict = require('date-fns/distance_in_words_strict')
 
 /*
  * Vue
  */
-
 window.Vue = require('vue')
 
+// Global variables
+Vue.prototype.$sounds = {
+    announce: new Audio('/sounds/announce.m4a'),
+    message: new Audio('/sounds/message.m4a')
+}
+
+/*
+ * Register filters
+ */
 Vue.filter('nl2br', function (value) {
     if (!value) return ''
     return value.replace(/(?:\r\n|\r|\n)/g, '<br>')
 })
+Vue.filter('ago', function (value) {
+    if (!value) return ''
+    value = distanceInWordsStrict(new Date(value), new Date).split(' ')
+    return value[0] + value[1][0]
+})
 
+// Components
 Vue.component('chat-widget', require('./ChatWidget.vue').default)
+Vue.component('message', require('./Message.vue').default)
 
+// Vue!
 const app = new Vue({
-    el: '#chat-widget',
+    el: '#app',
 
     data: {
         ready: false,
-        app_id: window.slimchat,
-        visitor_id: null,
+        app_id: null,
+        visitor_uuid: null,
     },
 
     created() {
@@ -64,12 +72,15 @@ const app = new Vue({
         // app_id
         this.app_id = window.slimchat.app_id
 
-        // visitor_id
-        this.visitor_id = localStorage.getItem('slimchat.visitor_id')
-        if (this.visitor_id == null) {
-            localStorage.setItem('slimchat.visitor_id', uuidv4())
-        }
+        // visitor_uuid
+        this.visitor_uuid = localStorage.getItem('slimchat.visitor_uuid')
+        axios.get('/api/announce/' + this.visitor_uuid)
+        .then(response => {
+            this.visitor_uuid = response.data.data.uuid
+            localStorage.setItem('slimchat.visitor_uuid', this.visitor_uuid)
+            console.log('Visitor: ', this.visitor_uuid)
 
-        this.ready = true
+            this.ready = true
+        })
     }
 })

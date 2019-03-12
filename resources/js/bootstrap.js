@@ -24,6 +24,41 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+window.axios.interceptors.response.use(
+    response => {
+        return response
+    },
+    error => {
+        switch (error.response.status) {
+            case 403:
+                Vue.toasted.show('Unauthorised! You may not be logged in.', {
+                    type: 'error',
+                    icon: 'fa-exclamation-triangle'
+                })
+                break
+            case 422:
+                if (error.response.data.errors != null) {
+                    let messages = error.response.data.errors
+                    messages = messages[Object.keys(error.response.data.errors)[0]]
+                    messages.forEach(message => {
+                        Vue.toasted.show(message, {
+                            type: 'info',
+                            icon: 'fa-exclamation-triangle'
+                        })
+                    })
+                } else {
+                    Vue.toasted.show(error.response.data.message, {
+                        type: 'info',
+                        icon: 'fa-exclamation-triangle'
+                    })
+                }
+                break
+        }
+
+        return Promise.reject(error)
+    }
+)
+
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just

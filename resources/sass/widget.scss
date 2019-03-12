@@ -1,0 +1,12 @@
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply .absolute .pin;
+    font-family: 'Avenir', sans-serif;
+}
+
+#app {
+    @apply .flex .w-full .h-full;
+}

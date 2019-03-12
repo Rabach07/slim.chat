@@ -31,6 +31,6 @@ class NewMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('conversations.1'); //.$this->message->conversation->id);
+        return new Channel('conversations.'.$this->message->conversation->id);
     }
 }
