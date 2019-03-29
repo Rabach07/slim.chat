@@ -5,8 +5,14 @@
                 <i class="fa fa-chevron-left"></i>
             </div>
             <div class="flex-1 flex items-center">
-                <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-10 h-10 rounded-full border-white" />
-                <div class="p-3 text-lg">Jack Cruden</div>
+                <img src="https://pbs.twimg.com/profile_images/1103654113865359361/rH-DxbuG_400x400.jpg" class="w-16 h-16 rounded-full border-white" />
+                <div class="p-3">
+                    <div class="text-2xl">WeRoster</div>
+                    <span class="text-xs pl-1 pr-2 py-1 bg-white text-grey-darker rounded-full">
+                        <i class="fa fa-fw fa-circle text-green"></i>
+                        Online
+                    </span>
+                </div>
             </div>
         </div>
 
@@ -16,16 +22,21 @@
             <div v-if="!conversation">
                 <div class="px-3 py-2 text-sm font-bold text-grey-dark border-b-2 bg-grey-lightest select-none">Past Conversations</div>
 
-                <div v-for="conversation in conversations" @click="setConversation(conversation)" class="sc-conversation">
-                    <span class="sc-conversation-subject truncate">"{{ conversation.subject }}"</span>
-                    <span class="float-right text-grey">{{ conversation.updated_at | ago }}</span>
+                <div v-for="conversation in conversations" @click="setConversation(conversation)" class="sc-conversation flex items-center">
+                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-8 h-8 m-2 ml-3 rounded-full" />
+                    <div class="sc-conversation-subject flex-1 p-2 truncate">
+                        <span class="text-grey-dark">"</span>{{ conversation.subject }}<span class="text-grey-dark">"</span>
+                    </div>
+                    <div class="float-right px-3 py-2 text-grey">
+                        {{ conversation.updated_at | ago }}
+                    </div>
                 </div>
             </div>
         </div>
 
         <form class="sc-messagebar">
             <div class="flex-1 mr-2">
-                <input type="text" v-model="messageInput" class="sc-input" maxlength="1024" placeholder="Type message..." />
+                <input type="text" v-model="messageInput" class="sc-input" maxlength="1024" placeholder="Type to start a conversation..." />
             </div>
             <button @click.prevent="sendMessage()" :disabled="messageInput == ''" class="sc-button">
                 <i class="fa fa-paper-plane"></i>
@@ -41,7 +52,7 @@
         data() {
             return {
                 showConversation: false,
-                conversations: [1,2],
+                conversations: [],
                 conversation: null,
                 messages: [],
                 messageInput: ''
@@ -62,26 +73,48 @@
                     to: 'parent',
                     data: {
                         width: this.showConversation ? '350px' : '0',
-                        height: this.showConversation ? '400px': '0'
+                        height: this.showConversation ? '500px': '0'
                     }
                 })
             },
-            scrollToBottom() {
+            scrollToBottom(smooth) {
                 this.$nextTick(() => {
                     if (this.$refs['c-conversation']) {
-                        this.$refs['c-conversation'].scroll(0, 9999)
+                        this.$refs['c-conversation'].scroll({
+                            top: 99999999,
+                            behavior: smooth ? 'smooth' : 'auto'
+                        })
                     }
                 })
             },
             sendMessage() {
+                if (this.conversation) {
+                    this.postMessage(this.messageInput)
+                    this.messageInput = ''
+                } else {
+                    // Create conversation
+                    axios.post('/api/conversations', {
+                        app_id: this.app_id,
+                        visitor_uuid: this.visitor_uuid
+                    })
+                    .then(response => {
+                        this.conversation = response.data.data
+                        this.fetchConversations()
+
+                        this.postMessage(this.messageInput)
+                        this.messageInput = ''
+                    })
+                }
+            },
+            postMessage(messageInput) {
                 axios.post('/api/messages', {
                     app_id: this.app_id,
                     visitor_uuid: this.visitor_uuid,
                     conversation_id: this.conversation.id,
-                    message: this.messageInput,
+                    message: messageInput,
                 })
                 .then(response => {
-                    this.messageInput = ''
+                    // Message sent
                 })
             },
             closeConversation() {
@@ -98,13 +131,10 @@
 
                 Echo.channel('conversations.' + this.conversation.id)
                 .listen('NewMessage', event => {
-                    console.log(event)
                     this.messages.push(event.message)
-                    this.scrollToBottom()
+                    this.scrollToBottom(true)
                     this.$sounds.message.play()
                 })
-
-                console.log('Conversation set: ', conversation)
             },
             fetchConversations() {
                 axios.get('/api/conversations', {
@@ -149,7 +179,7 @@
                 Echo.leave('conversations.' + this.conversation.id)
             }
 
-            window.removeEventListener('message')
+            // window.removeEventListener('message',)
         },
     }
 </script>
@@ -174,7 +204,7 @@
         background-color: var(--brand);
     }
     .sc-conversation {
-        @apply .px-3 .py-2 .border-b .cursor-pointer;
+        @apply .border-b .cursor-pointer;
         &:hover {
             background-color: #eee;
         }

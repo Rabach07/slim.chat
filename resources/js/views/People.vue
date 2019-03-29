@@ -15,6 +15,7 @@
                     <thead>
                         <tr>
                             <th v-for="fixedProperty in fixedProperties">
+                                <i class="fa fa-star text-grey"></i>
                                 {{ fixedProperty | title }}
                             </th>
                         </tr>

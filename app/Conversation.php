@@ -69,18 +69,16 @@ class Conversation extends Model
 
     public function getSubjectAttribute()
     {
-        return $this->messages()
-            ->orderBy('created_at')
-            ->first()
-            ->message;
+        return optional(
+            $this->messages()
+                ->orderBy('created_at')
+                ->first()
+        )->message;
     }
 
     public function getLastActiveAttribute()
     {
-        return $this->messages()
-            ->orderBy('created_at', 'desc')
-            ->first()
-            ->created_at;
+        return optional($this->most_recent_message)->created_at;
     }
 
     public function getMostRecentMessageAttribute()

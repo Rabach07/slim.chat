@@ -9,42 +9,24 @@
                     class="w-24 h-24 rounded-full" /><br>
 
                 <div class="font-bold mt-3 text-lg">Jack Cruden</div>
-            </div>
-            <div class="flex items-center p-4 border-b">
-                <div class="flex-1 truncate">jackcruden@gmail.com</div>
-                <div class="float-right select-none text-grey">
-                    <i class="fas fa-at"></i>
-                </div>
-            </div>
-            <div class="flex items-center p-4 border-b">
-                <div class="flex-1 truncate">Taranaki, New Zealand</div>
-                <div class="float-right select-none text-grey">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
-            </div>
-            <div class="flex items-center p-4 border-b">
-                <div class="flex-1 truncate">9:05pm, 28th February</div>
-                <div class="float-right select-none text-grey">
-                    <i class="fas fa-clock"></i>
-                </div>
-            </div>
-            <div class="flex items-center p-4 border-b">
-                <div class="flex-1 truncate">Chrome 72, MacBook Pro</div>
-                <div class="float-right select-none text-grey">
-                    <i class="fas fa-laptop"></i>
-                </div>
-            </div>
-
-            <div class="flex items-center border-b-2"></div> -->
+            </div> -->
 
             <div v-for="property in propertiesFiltered" class="items-center p-4 border-b">
                 <div class="mb-2 text-xs text-grey font-semibold uppercase truncate select-none">
-                    {{ property.name | title }}
+                    <span v-if="property.fixed" class="text-orange">
+                        <i v-if="property.fixed" class="fa fa-star"></i>
+                        {{ property.name | title }}
+                    </span>
+                    <span v-if="! property.fixed">
+                        <i v-if="property.fixed" class="fa fa-fw fa-star"></i>
+                        {{ property.name | title }}
+                    </span>
                 </div>
                 <div class="truncate">
                     {{ property.value }}
                 </div>
             </div>
+
             <div v-if="!propertiesFiltered.length" class="p-4 text-center select-none text-grey">
                 No properties found.
             </div>
@@ -74,11 +56,37 @@
 
         computed: {
             propertiesFiltered() {
-                return filter(this.properties, property => {
+                let properties = []
+                let fixedProperties = this.$business.settings.fixed_properties.split(',')
+
+                // Determine fixed properties
+                properties = this.properties.map(property => {
+                    return {
+                        fixed: fixedProperties.includes(property.name),
+                        name: property.name,
+                        value: property.value
+                    }
+                })
+
+                // Filter by search
+                properties = filter(properties, property => {
                     const combined = property.name.toLowerCase() + ' ' + property.value.toLowerCase()
                     return combined.includes(this.propertySearch)
                 })
-            }
+
+                // Sort
+                return properties.sort((propertyA, propertyB) => {
+                    if (propertyA.fixed && !propertyB.fixed) {
+                        return -1
+                    } else if (!propertyA.fixed && propertyB.fixed) {
+                        return 1
+                    } else if (propertyA.fixed && propertyB.fixed) {
+                        return fixedProperties.indexOf(propertyA.name) - fixedProperties.indexOf(propertyB.name)
+                    } else if (propertyA.fixed == propertyB.fixed) {
+                        return propertyA.name.localeCompare(propertyB.name)
+                    }
+                })
+            },
         },
 
         methods: {

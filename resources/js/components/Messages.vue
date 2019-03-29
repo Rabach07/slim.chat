@@ -30,7 +30,7 @@
                     Echo.channel('conversations.' + newConversation.id)
                     .listen('NewMessage', event => {
                         this.messages.push(event.message)
-                        this.scrollToBottom()
+                        this.scrollToBottom(true)
                     })
 
                     this.fetchMessages()
@@ -39,10 +39,13 @@
         },
 
         methods: {
-            scrollToBottom() {
+            scrollToBottom(smooth) {
                 this.$nextTick(() => {
                     if (this.$refs['c-conversation']) {
-                        this.$refs['c-conversation'].scroll(0, 99999999)
+                        this.$refs['c-conversation'].scroll({
+                            top: 99999999,
+                            behavior: smooth ? 'smooth' : 'auto'
+                        })
                     }
                 })
             },
