@@ -1,5 +1,5 @@
 <template>
-    <div class="w-1/5 h-screen">
+    <div class="h-screen">
         <div class="border-b">
             <input v-model="propertySearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search properties...">
         </div>

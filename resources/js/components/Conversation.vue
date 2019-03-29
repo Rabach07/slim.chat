@@ -1,5 +1,5 @@
 <template>
-    <div @click="selected(conversation)" class="p-4 border-b hover:bg-grey-lighter cursor-pointer select-none">
+    <div @click="selected(conversation)" class="w-full p-4 border-b hover:bg-grey-lighter cursor-pointer select-none">
         <div class="flex items-center">
             <div class="flex-1">
                 {{ conversationUpdated.name }}
@@ -8,11 +8,11 @@
                 <i class="fas fa-circle"></i>
             </div>
         </div>
-        <div class="mt-2 flex text-sm">
-            <div class="flex-1 mr-4 truncate">
+        <div class="w-full mt-2 flex text-sm">
+            <div class="flex-1 truncate">
                 "{{ conversationUpdated.most_recent_message.message }}"
             </div>
-            <div class="text-grey-dark">
+            <div class="ml-4 text-grey-dark">
                 <ago :datetime="conversationUpdated.last_active" />
             </div>
         </div>

@@ -1,6 +1,8 @@
 <template>
     <div class="flex">
-        <navigation />
+        <div class="w-24">
+            <navigation />
+        </div>
 
         <div class="flex-1">
             <router-view></router-view>

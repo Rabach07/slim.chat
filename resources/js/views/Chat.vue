@@ -1,6 +1,8 @@
 <template>
     <div class="flex h-screen">
-        <conversations @selected="conversationSelected" />
+        <div class="w-1/5">
+            <conversations @selected="conversationSelected" />
+        </div>
 
         <div class="flex-1 h-screen flex flex-col border-r">
             <conversation-detail v-if="selectedConversation" :conversation="selectedConversation" />
@@ -21,7 +23,9 @@
             </div>
         </div>
 
-        <properties v-if="selectedConversation" :visitor_id="selectedConversation.visitor_id" />
+        <div class="w-1/5">
+            <properties v-if="selectedConversation" :visitor_id="selectedConversation.visitor_id" />
+        </div>
     </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="w-24 py-6 h-screen bg-green text-center text-white font-bold select-none border-r-4" style="border-color: rgba(0,0,0,0.1);">
+    <div class="py-6 h-screen bg-green text-center text-white font-bold select-none border-r-4" style="border-color: rgba(0,0,0,0.1);">
         <router-link :to="{ name: 'chat' }">
             <div class="mb-8 cursor-pointer">
                 <i class="fas fa-2x fa-comment mb-2"></i><br>

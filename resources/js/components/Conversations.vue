@@ -1,5 +1,5 @@
 <template>
-    <div class="w-1/5 flex flex-col h-full border-r">
+    <div class="h-full border-r">
         <div class="border-b">
             <input v-model="conversationSearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
         </div>
