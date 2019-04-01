@@ -32,4 +32,4 @@ Route::get('/app{any}', function () {
     $user = auth()->user();
 
     return view('app', compact('business', 'user'));
-})->where('any', '.*');
+})->where('any', '.*')->middleware('auth');
