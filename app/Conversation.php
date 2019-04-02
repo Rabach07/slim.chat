@@ -18,7 +18,7 @@ class Conversation extends Model
         'status'      => 'integer',
     ];
 
-    protected $appends = ['name', 'subject', 'last_active', 'most_recent_message'];
+    protected $appends = ['name', 'subject', 'user_last_active', 'most_recent_message'];
 
     public function business()
     {
@@ -76,7 +76,7 @@ class Conversation extends Model
         )->message;
     }
 
-    public function getLastActiveAttribute()
+    public function getUserLastActiveAttribute()
     {
         return optional($this->most_recent_message)->created_at;
     }

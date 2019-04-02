@@ -52,7 +52,7 @@ class MessageController extends Controller
             $message = Message::create([
                 'conversation_id' => $conversation->id,
                 'from_user_id'    => auth()->user()->id,
-                'message'         => $request->message,
+                'message'         => htmlspecialchars($request->message),
             ]);
         } else {
             // TODO Authorise visitor
@@ -82,12 +82,12 @@ class MessageController extends Controller
 
         event(new NewMessage($message));
 
-        if (ConversationStatus::CLOSED == $message->conversation->status) {
-            $message->conversation->update([
-                'status' => ConversationStatus::OPEN,
-            ]);
-            event(new ConversationUpdated($message->conversation));
-        }
+        $message->conversation->update([
+            'status'     => ConversationStatus::OPEN,
+            'updated_at' => now(),
+        ]);
+        $message->conversation->touch();
+        event(new ConversationUpdated($message->conversation));
 
         return $message;
     }

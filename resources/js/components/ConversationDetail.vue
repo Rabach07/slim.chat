@@ -19,23 +19,13 @@
     export default {
         props: ['conversation'],
 
-        data() {
-            return {
-                //
-            }
-        },
-
-        computed: {
-            //
-        },
-
         methods: {
             close() {
                 axios.patch('/api/conversations/' + this.conversation.id, {
                     status: 0 // Closed
                 })
                 .then(response => {
-                    this.$emit('selected', null)
+                    this.$bus.$emit('conversationSelected', {})
                 })
             },
             open() {
@@ -43,7 +33,7 @@
                     status: 1 // Open
                 })
                 .then(response => {
-                    this.$emit('selected', this.conversation)
+                    this.$bus.$emit('conversationSelected', this.conversation)
                 })
             }
         }

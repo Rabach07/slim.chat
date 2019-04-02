@@ -1,17 +1,17 @@
 <template>
     <div class="flex h-screen">
         <div class="w-1/5 border-r">
-            <conversations @selected="conversationSelected" />
+            <conversations />
         </div>
 
         <div class="flex-1 h-screen flex flex-col border-r">
-            <conversation-detail v-if="selectedConversation" :conversation="selectedConversation" @selected="conversationSelected" />
+            <conversation-detail v-if="selectedConversation.id" :conversation="selectedConversation" />
 
-            <messages v-if="selectedConversation" :conversation="selectedConversation" />
+            <messages v-if="selectedConversation.id" :conversation="selectedConversation" />
 
-            <compose-message v-if="selectedConversation && selectedConversation.status == 1" :conversation="selectedConversation" />
+            <compose-message v-if="selectedConversation.id && selectedConversation.status == 1" :conversation="selectedConversation" />
 
-            <div v-if="!selectedConversation" class="h-full flex items-center w-3/4 mx-auto text-center select-none">
+            <div v-if="!selectedConversation.id" class="h-full flex items-center w-3/4 mx-auto text-center select-none">
                 <div>
                     <img src="/images/empty/no_conversation_selected.svg">
                     <h1 class="mt-10">Start chatting!</h1>
@@ -24,7 +24,7 @@
         </div>
 
         <div class="w-1/5">
-            <properties v-if="selectedConversation" :visitor_id="selectedConversation.visitor_id" />
+            <properties v-if="selectedConversation.id" :visitor_id="selectedConversation.visitor_id" />
         </div>
     </div>
 </template>
@@ -49,25 +49,14 @@
 
         data() {
             return {
-                selectedConversation: null,
-            }
-        },
-
-        methods: {
-            conversationSelected(event) {
-                this.selectedConversation = event
+                selectedConversation: {},
             }
         },
 
         created() {
-            Echo.channel('businesses.' + this.$root.business.id + '.conversations')
-            .listen('ConversationUpdated', event => {
-                this.selectedConversation = event.conversation
+            this.$bus.$on('conversationSelected', conversation => {
+                this.selectedConversation = conversation
             })
-        },
-
-        beforeDestroyed() {
-            Echo.leave('businesses.' + this.$root.business.id + '.conversations')
         }
     }
 </script>

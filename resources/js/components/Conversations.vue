@@ -3,20 +3,27 @@
         <div class="border-b">
             <input v-model="conversationSearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
         </div>
-        <div class="border-b text-grey-darker select-none">
-            <div class="flex p-2">
-                <span class="text-lg py-2 pr-2">Status</span>
-                <select v-model="selectedStatus" class="input">
-                    <option v-for="status in statuses">{{ status }}</option>
+        <div class="flex border-b text-grey-darker select-none">
+            <div class="flex-1 p-2 pr-1">
+                <select v-model="filters.status" class="input">
+                    <optgroup label="Status">
+                        <option v-for="status in statuses">{{ status }}</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="flex-1 p-2 pl-1">
+                <select v-model="filters.order" class="input">
+                    <optgroup label="Sort">
+                        <option v-for="order in orders">{{ order }}</option>
+                    </optgroup>
                 </select>
             </div>
         </div>
         <div class="overflow-y-scroll" style="height: calc(100vh - 65px - 53px);">
             <conversation v-for="conversation in conversationsFiltered"
                 :key="'conversation'+conversation.id"
-                @selected="selected(conversation)"
                 :conversation="conversation"
-                :class="selectedConversation == conversation ? 'bg-grey-lighter' : ''"
+                :class="selectedConversation.id == conversation.id ? 'bg-grey-lighter' : ''"
             />
 
             <div v-if="!conversationsFiltered.length" class="p-4 text-center select-none text-grey">
@@ -38,16 +45,23 @@
         data() {
             return {
                 conversationSearch: '',
-                selectedConversation: null,
+                selectedConversation: {},
                 conversations: [],
-                selectedStatus: 'Open',
-                statuses: ['Closed', 'Open']
+                statuses: ['Closed', 'Open'],
+                orders: ['Recent', 'Newest', 'Oldest'],
+                filters: {
+                    status: 'Open',
+                    order: 'Recent'
+                }
             }
         },
 
         watch: {
-            selectedStatus(newVal, oldVal) {
-                this.fetchConversations()
+            filters: {
+                handler(newVal, oldVal) {
+                    this.fetchConversations()
+                },
+                deep: true
             }
         },
 
@@ -61,24 +75,25 @@
 
         methods: {
             fetchConversations() {
-                axios.get('/api/conversations?filter[status]=' + this.statuses.indexOf(this.selectedStatus), {
+                axios.get('/api/conversations', {
                     params: {
+                        'filter[status]': this.statuses.indexOf(this.filters.status),
+                        'sort': this.filters.order == 'Recent' ? '-updated_at' : this.filters.order == 'Newest' ? '-created_at' : 'created_at',
                         business_id: this.$root.business.id
                     }
                 })
                 .then(response => {
                     this.conversations = response.data.data
                 })
-            },
-            selected(conversation) {
-                this.selectedConversation = conversation
-
-                this.$emit('selected', conversation)
             }
         },
 
         created() {
             this.fetchConversations()
+
+            this.$bus.$on('conversationSelected', conversation => {
+                this.selectedConversation = conversation
+            })
 
             Echo.channel('businesses.' + this.$root.business.id + '.conversations')
             .listen('ConversationUpdated', event => {
