@@ -31,5 +31,5 @@ Route::get('/app{any}', function () {
     $business->settings = $business->settings;
     $user = auth()->user();
 
-    return view('app', compact('business', 'user'));
+    return view('app', compact('business', 'user', 'conversations'));
 })->where('any', '.*')->middleware('auth');

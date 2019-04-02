@@ -1,15 +1,15 @@
 <template>
     <div class="flex h-screen">
-        <div class="w-1/5">
+        <div class="w-1/5 border-r">
             <conversations @selected="conversationSelected" />
         </div>
 
         <div class="flex-1 h-screen flex flex-col border-r">
-            <conversation-detail v-if="selectedConversation" :conversation="selectedConversation" />
+            <conversation-detail v-if="selectedConversation" :conversation="selectedConversation" @selected="conversationSelected" />
 
             <messages v-if="selectedConversation" :conversation="selectedConversation" />
 
-            <compose-message v-if="selectedConversation" :conversation="selectedConversation" />
+            <compose-message v-if="selectedConversation && selectedConversation.status == 1" :conversation="selectedConversation" />
 
             <div v-if="!selectedConversation" class="h-full flex items-center w-3/4 mx-auto text-center select-none">
                 <div>
@@ -57,6 +57,17 @@
             conversationSelected(event) {
                 this.selectedConversation = event
             }
+        },
+
+        created() {
+            Echo.channel('businesses.' + this.$root.business.id + '.conversations')
+            .listen('ConversationUpdated', event => {
+                this.selectedConversation = event.conversation
+            })
+        },
+
+        beforeDestroyed() {
+            Echo.leave('businesses.' + this.$root.business.id + '.conversations')
         }
     }
 </script>

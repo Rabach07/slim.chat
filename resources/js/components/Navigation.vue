@@ -4,6 +4,10 @@
             <div class="mb-8 cursor-pointer">
                 <i class="fas fa-2x fa-comment mb-2"></i><br>
                 Chat
+                <span v-if="$root.conversations.length" class="absolute bg-red text-sm rounded-full border-2 border-white"
+                    style="top: 20px; left: 50px; padding: 1px 5px">
+                    {{ $root.conversations.length }}
+                </span>
             </div>
         </router-link>
         <router-link :to="{ name: 'people' }">

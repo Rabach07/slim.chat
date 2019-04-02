@@ -57,7 +57,7 @@
         computed: {
             propertiesFiltered() {
                 let properties = []
-                let fixedProperties = this.$business.settings.fixed_properties.split(',')
+                let fixedProperties = this.$root.business.settings.fixed_properties.split(',')
 
                 // Determine fixed properties
                 properties = this.properties.map(property => {

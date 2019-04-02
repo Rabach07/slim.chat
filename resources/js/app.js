@@ -22,15 +22,16 @@ import router from './routes'
 Vue.component('ago', require('./components/Ago').default)
 
 /*
- * Global Vue properties
+ * Global static Vue properties
  * e.g. this.$user
  */
-Vue.prototype.$user = window.slimchat.user
-Vue.prototype.$business = window.slimchat.business
 Vue.prototype.$sound = {
     announce: new Audio('/sounds/announce.m4a'),
     message: new Audio('/sounds/message.m4a')
 }
+
+// Event bus
+Vue.prototype.$bus = new Vue({})
 
 /*
  * Import third-party functions for global addons (filters, etc.)
@@ -77,11 +78,50 @@ Vue.filter('ago', function (value) {
 /*
  * Create the app!
  */
-const app = new Vue({
+var app = new Vue({
     el: '#app',
+
+    data: {
+        user: window.slimchat.user,
+        business: window.slimchat.business,
+        conversations: []
+    },
+
+    methods: {
+        fetchUser() {
+            //
+        },
+        fetchBusiness() {
+            //
+        },
+        fetchConversations() {
+            axios.get('/api/conversations?filter[status]=1', {
+                params: {
+                    business_id: this.business.id
+                }
+            })
+            .then(response => {
+                this.conversations = response.data.data
+            })
+        }
+    },
+
+    created() {
+        this.fetchConversations()
+
+        // Listen for events
+        Echo.channel('businesses.' + this.business.id + '.conversations')
+        .listen('ConversationUpdated', event => {
+            this.fetchConversations()
+        })
+    },
 
     mounted() {
         console.log('App ready.')
+    },
+
+    beforeDestroyed() {
+        Echo.leave('businesses.' + this.business.id + '.conversations')
     },
 
     router

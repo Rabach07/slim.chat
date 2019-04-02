@@ -36,6 +36,12 @@ window.axios.interceptors.response.use(
                     icon: 'fa-exclamation-triangle'
                 })
                 break
+            case 429:
+                Vue.toasted.show('Too many requests!', {
+                    type: 'error',
+                    icon: 'fa-exclamation-triangle'
+                })
+                break
             case 422:
                 if (error.response.data.errors != null) {
                     let messages = error.response.data.errors

@@ -37,7 +37,7 @@
 
         methods: {
             fetchBusiness() {
-                axios.get('/api/businesses/' + this.$business.id)
+                axios.get('/api/businesses/' + this.$root.business.id)
                 .then(response => {
                     this.business = response.data.data
                 })

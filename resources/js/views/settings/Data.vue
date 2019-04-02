@@ -95,7 +95,7 @@
                 })
             },
             fetchProperties() {
-                axios.get('/api/businesses/' + this.$business.id + '/properties')
+                axios.get('/api/businesses/' + this.$root.business.id + '/properties')
                 .then(response => {
                     this.availableProperties = response.data.data.sort()
                 })

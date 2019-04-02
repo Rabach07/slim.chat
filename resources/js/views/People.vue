@@ -35,7 +35,9 @@
             </div>
         </div>
 
-        <properties v-if="selectedPerson" :visitor_id="selectedPerson.id" />
+        <div class="w-1/5">
+            <properties v-if="selectedPerson" :visitor_id="selectedPerson.id" />
+        </div>
     </div>
 </template>
 
@@ -69,7 +71,7 @@
                 })
             },
             fixedProperties() {
-                return this.$business.settings.fixed_properties.split(',')
+                return this.$root.business.settings.fixed_properties.split(',')
             }
         },
 
@@ -77,7 +79,7 @@
             fetchPeople() {
                 axios.get('/api/visitors', {
                     params: {
-                        business_id: this.$business.id,
+                        business_id: this.$root.business.id,
                         append: 'props',
                     }
                 })

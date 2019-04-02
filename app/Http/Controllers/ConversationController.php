@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Business;
 use App\Conversation;
 use App\ConversationStatus;
+use App\Events\ConversationUpdated;
 use App\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -32,6 +33,7 @@ class ConversationController extends Controller
             return QueryBuilder::for(Conversation::class)
                 ->whereBusinessId($business->id)
                 ->defaultSort('-updated_at')
+                ->allowedFilters('status')
                 ->paginate($request->limit ?? 25);
         }
     }
@@ -76,12 +78,15 @@ class ConversationController extends Controller
     {
         $this->authorize('update', $conversation->business);
 
-        $request->validate([
+        $validatedData = $request->validate([
             'status' => [
                 'required',
                 Rule::in(ConversationStatus::getValues()),
             ],
         ]);
+
+        $conversation->update($validatedData);
+        event(new ConversationUpdated($conversation));
 
         return $conversation;
     }

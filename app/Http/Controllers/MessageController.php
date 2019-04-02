@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Business;
 use App\Conversation;
+use App\ConversationStatus;
+use App\Events\ConversationUpdated;
 use App\Events\NewMessage;
 use App\Message;
 use App\Visitor;
@@ -79,6 +81,13 @@ class MessageController extends Controller
         }
 
         event(new NewMessage($message));
+
+        if (ConversationStatus::CLOSED == $message->conversation->status) {
+            $message->conversation->update([
+                'status' => ConversationStatus::OPEN,
+            ]);
+            event(new ConversationUpdated($message->conversation));
+        }
 
         return $message;
     }

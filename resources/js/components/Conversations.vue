@@ -1,9 +1,17 @@
 <template>
-    <div class="h-full border-r">
+    <div class="h-screen">
         <div class="border-b">
             <input v-model="conversationSearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
         </div>
-        <div class="overflow-y-scroll">
+        <div class="border-b text-grey-darker">
+            <div class="flex p-2">
+                <span class="text-lg py-2 pr-2">Status</span>
+                <select v-model="selectedStatus" class="input">
+                    <option v-for="status in statuses">{{ status }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="overflow-y-scroll" style="height: calc(100vh - 65px - 53px);">
             <conversation v-for="conversation in conversationsFiltered"
                 :key="'conversation'+conversation.id"
                 @selected="selected(conversation)"
@@ -12,7 +20,7 @@
             />
 
             <div v-if="!conversationsFiltered.length" class="p-4 text-center select-none text-grey">
-                No conversations found.
+                No conversations to show.
             </div>
         </div>
     </div>
@@ -27,13 +35,19 @@
     export default {
         components: { Conversation },
 
-        props: [''],
-
         data() {
             return {
                 conversationSearch: '',
                 selectedConversation: null,
                 conversations: [],
+                selectedStatus: 'Open',
+                statuses: ['Closed', 'Open']
+            }
+        },
+
+        watch: {
+            selectedStatus(newVal, oldVal) {
+                this.fetchConversations()
             }
         },
 
@@ -47,9 +61,9 @@
 
         methods: {
             fetchConversations() {
-                axios.get('/api/conversations', {
+                axios.get('/api/conversations?filter[status]=' + this.statuses.indexOf(this.selectedStatus), {
                     params: {
-                        business_id: this.$business.id
+                        business_id: this.$root.business.id
                     }
                 })
                 .then(response => {
@@ -65,6 +79,15 @@
 
         created() {
             this.fetchConversations()
-        }
+
+            Echo.channel('businesses.' + this.$root.business.id + '.conversations')
+            .listen('ConversationUpdated', event => {
+                this.fetchConversations()
+            })
+        },
+
+        beforeDestroyed() {
+            Echo.leave('businesses.' + this.$root.business.id + '.conversations')
+        },
     }
 </script>
