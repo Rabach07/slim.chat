@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business;
+use App\Events\BusinessUpdated;
 use Illuminate\Http\Request;
 
 class BusinessController extends Controller
@@ -39,6 +40,8 @@ class BusinessController extends Controller
         ]);
 
         $business->update($request->all());
+
+        event(new BusinessUpdated($business));
 
         return response()->json([
             'data' => $business,

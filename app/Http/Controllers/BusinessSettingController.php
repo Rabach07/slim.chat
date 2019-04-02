@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business;
+use App\Events\BusinessUpdated;
 use App\Setting;
 use Illuminate\Http\Request;
 
@@ -48,6 +49,8 @@ class BusinessSettingController extends Controller
         $setting->update([
             'value' => $request->value,
         ]);
+
+        event(new BusinessUpdated($business));
 
         return $setting;
     }

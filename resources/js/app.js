@@ -37,6 +37,8 @@ Vue.prototype.$bus = new Vue({})
  * Import third-party functions for global addons (filters, etc.)
  */
  // Lodash & date-fns
+var Favico = require('favico.js')
+Vue.prototype.$favico = new Favico({ position: 'up', animation: 'none' })
 var startCase = require('lodash/startCase')
 var camelCase = require('lodash/camelCase')
 var distanceInWordsStrict = require('date-fns/distance_in_words_strict')
@@ -87,12 +89,21 @@ var app = new Vue({
         conversations: []
     },
 
+    watch: {
+        conversations(newConversations) {
+            this.$favico.badge(newConversations.length)
+        }
+    },
+
     methods: {
         fetchUser() {
             //
         },
         fetchBusiness() {
-            //
+            axios.get('/api/businesses/' + this.business.id)
+            .then(response => {
+                this.business = response.data.data
+            })
         },
         fetchConversations() {
             axios.get('/api/conversations?filter[status]=1', {
@@ -109,10 +120,14 @@ var app = new Vue({
     created() {
         this.fetchConversations()
 
-        // Listen for events
         Echo.channel('businesses.' + this.business.id + '.conversations')
         .listen('ConversationUpdated', event => {
             this.fetchConversations()
+        })
+
+        Echo.channel('businesses.' + this.business.id)
+        .listen('BusinessUpdated', event => {
+            this.business = event.business
         })
     },
 
@@ -121,6 +136,7 @@ var app = new Vue({
     },
 
     beforeDestroyed() {
+        Echo.leave('businesses.' + this.business.id)
         Echo.leave('businesses.' + this.business.id + '.conversations')
     },
 

@@ -28,7 +28,7 @@ Route::view('widget/window', 'widget-window');
 // App
 Route::get('/app{any}', function () {
     $business = App\Business::find(1);
-    $business->settings = $business->settings;
+    // $business->settings = $business->settings;
     $user = auth()->user();
 
     return view('app', compact('business', 'user', 'conversations'));

@@ -17,7 +17,7 @@
         </div>
 
         <div ref="c-conversation" class="overflow-y-scroll h-full">
-            <message v-for="message in messages" :key="'message'+message.id" :message="message" />
+            <message v-for="message in messages" :key="'message' + message.id" :message="message" />
 
             <div v-if="!conversation">
                 <div class="px-3 py-2 text-sm font-bold text-grey-dark border-b-2 bg-grey-lightest select-none">Past Conversations</div>

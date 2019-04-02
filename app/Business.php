@@ -8,6 +8,8 @@ class Business extends Model
 {
     protected $fillable = ['app_id', 'owner_id', 'name'];
 
+    protected $appends = ['settings'];
+
     protected $casts = [
         'app_id'   => 'integer',
         'owner_id' => 'integer',

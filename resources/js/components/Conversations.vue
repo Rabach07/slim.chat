@@ -3,7 +3,7 @@
         <div class="border-b">
             <input v-model="conversationSearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
         </div>
-        <div class="border-b text-grey-darker">
+        <div class="border-b text-grey-darker select-none">
             <div class="flex p-2">
                 <span class="text-lg py-2 pr-2">Status</span>
                 <select v-model="selectedStatus" class="input">
