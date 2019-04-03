@@ -20,7 +20,7 @@
 
         data() {
             return {
-                message: '',
+                message: ''
             }
         },
 
@@ -49,6 +49,6 @@
                     this.$refs['compose-message-input'].style.height = (height + 8) + 'px'
                 })
             }
-        }
+        },
     }
 </script>
