@@ -1,6 +1,6 @@
 var slimchatDiv = document.createElement('div');
 slimchatDiv.innerHTML = `
-    <iframe id="slimchat-bubble" src="https://slim.chat.test/widget/bubble" style="
+    <iframe id="slimchat-bubble" src="https://slim.chat/widget/bubble" style="
         width: 70px;
         height: 70px;
         position: fixed;
@@ -11,7 +11,7 @@ slimchatDiv.innerHTML = `
             0 5px 15px 0 rgba(0,0,0,0.08);
     "></iframe>
 
-    <iframe id="slimchat-window" src="https://slim.chat.test/widget/window" style="
+    <iframe id="slimchat-window" src="https://slim.chat/widget/window" style="
         width: 0;
         height: 0;
         max-width: calc(100vw - 50px);
