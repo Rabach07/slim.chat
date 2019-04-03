@@ -180,8 +180,6 @@
             this.fetchConversations()
 
             window.addEventListener('message', message => {
-                console.log('message received by chat-widget')
-                console.log(message)
                 this.toggleConversation(message.data.open)
             }, false)
         },

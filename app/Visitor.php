@@ -50,14 +50,19 @@ class Visitor extends Model
      */
     public static function get(int $business_id, string $uuid = null): ?Visitor
     {
-        if (! $uuid) {
-            $uuid = Str::uuid();
-        }
-
-        return Visitor::firstOrCreate([
+        $visitor = Visitor::where([
             'business_id' => $business_id,
             'uuid'        => $uuid,
-        ]);
+        ])->first();
+
+        if (! $visitor) {
+            $visitor = Visitor::create([
+                'business_id' => $business_id,
+                'uuid'        => Str::uuid(),
+            ]);
+        }
+
+        return $visitor;
     }
 
     public function getPropsAttribute()

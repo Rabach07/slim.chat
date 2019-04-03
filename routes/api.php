@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\PropertiesUpdated;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 /*
@@ -47,8 +48,11 @@ Route::apiResource('conversations', 'ConversationController');
 Route::apiResource('messages', 'MessageController');
 
 // Visitor Actions
-Route::get('announce/{uuid?}', function ($uuid = null) {
-    $visitor = App\Visitor::get(1, $uuid);
+Route::post('announce', function (Request $request) {
+    $business = App\Business::findByAppId($request->app_id);
+    abort_if(! $business, 404, 'Business not found.');
+
+    $visitor = App\Visitor::get($business->id, $request->visitor_uuid);
 
     // Device info
     $agent = new Jenssegers\Agent\Agent();
@@ -71,7 +75,7 @@ Route::get('announce/{uuid?}', function ($uuid = null) {
 
     return response()->json([
         'data' => [
-            'uuid'       => $visitor->uuid,
+            'uuid' => $visitor->uuid,
             // 'properties' => $visitor->props,
         ],
     ]);

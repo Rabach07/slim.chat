@@ -74,12 +74,16 @@ const app = new Vue({
         this.app_id = window.slimchat.app_id
 
         // visitor_uuid
-        this.visitor_uuid = localStorage.getItem('slimchat.visitor_uuid')
-        axios.get('/api/announce/' + this.visitor_uuid)
+        if (localStorage.getItem('slimchat.visitor_uuid')) {
+            this.visitor_uuid = localStorage.getItem('slimchat.visitor_uuid')
+        }
+        axios.post('/api/announce', {
+            visitor_uuid: this.visitor_uuid,
+            app_id: this.app_id
+        })
         .then(response => {
             this.visitor_uuid = response.data.data.uuid
             localStorage.setItem('slimchat.visitor_uuid', this.visitor_uuid)
-            console.log('Visitor: ', this.visitor_uuid)
 
             this.ready = true
         })
