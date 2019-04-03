@@ -21,7 +21,7 @@ window.Echo = new Echo({
     wsPort: process.env.MIX_PUSHER_WS_PORT,
     wssPort: process.env.MIX_PUSHER_WS_PORT,
     encrypted: process.env.MIX_PUSHER_ENCRYPTED,
-    enabledTransports: ['ws', 'wss'],
+    // enabledTransports: ['ws', 'wss'],
     disableStats: true
 })
 

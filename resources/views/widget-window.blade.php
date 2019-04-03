@@ -15,7 +15,8 @@
 </head>
 <body>
     <div id="app">
-        <chat-widget v-if="ready" :app_id="app_id" :visitor_uuid="visitor_uuid" />
+        <chat-widget v-if="ready" :app_id="app_id" :visitor_uuid="visitor_uuid"
+        :settings="{logo:'',colors:{primary:'',contrast:''}}" />
     </div>
 
     <script src="{{ mix('js/widget.js') }}"></script>

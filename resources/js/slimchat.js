@@ -1,6 +1,7 @@
 var slimchatDiv = document.createElement('div');
+var protocol = process.env.MIX_PUSHER_WS_HOST == 'slim.chat.test' ? 'http://' : 'https://'
 slimchatDiv.innerHTML = `
-    <iframe id="slimchat-bubble" src="https://` + process.env.MIX_PUSHER_WS_HOST + `/widget/bubble" style="
+    <iframe id="slimchat-bubble" src="` + protocol + process.env.MIX_PUSHER_WS_HOST + `/widget/bubble" style="
         width: 70px;
         height: 70px;
         position: fixed;
@@ -11,7 +12,7 @@ slimchatDiv.innerHTML = `
             0 5px 15px 0 rgba(0,0,0,0.08);
     "></iframe>
 
-    <iframe id="slimchat-window" src="https://` + process.env.MIX_PUSHER_WS_HOST + `/widget/window" style="
+    <iframe id="slimchat-window" src="` + protocol + process.env.MIX_PUSHER_WS_HOST + `/widget/window" style="
         width: 0;
         height: 0;
         max-width: calc(100vw - 50px);
