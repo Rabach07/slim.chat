@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\PropertiesUpdated;
 use Illuminate\Support\Facades\Storage;
 
 /*
@@ -58,17 +59,20 @@ Route::get('announce/{uuid?}', function ($uuid = null) {
     App\Property::set($visitor->id, 'language', $agent->languages()[0]);
 
     // Geo info
-    $ip = '81.92.206.42';
+    $ip = request()->ip();
     $geo = json_decode(file_get_contents('https://get.geojs.io/v1/ip/geo/'.$ip.'.json'));
-    App\Property::set($visitor->id, 'country', $geo->country);
-    App\Property::set($visitor->id, 'region', $geo->region);
-    App\Property::set($visitor->id, 'city', $geo->city);
-    App\Property::set($visitor->id, 'ip', $geo->ip);
-    App\Property::set($visitor->id, 'timezone', $geo->timezone);
+    App\Property::set($visitor->id, 'country', isset($geo->country) ? $geo->country : '');
+    App\Property::set($visitor->id, 'region', isset($geo->region) ? $geo->region : '');
+    App\Property::set($visitor->id, 'city', isset($geo->city) ? $geo->city : '');
+    App\Property::set($visitor->id, 'ip', isset($geo->ip) ? $geo->ip : '');
+    App\Property::set($visitor->id, 'timezone', isset($geo->timezone) ? $geo->timezone : '');
+
+    event(new PropertiesUpdated($visitor));
 
     return response()->json([
         'data' => [
-            'uuid' => $visitor->uuid,
+            'uuid'       => $visitor->uuid,
+            // 'properties' => $visitor->props,
         ],
     ]);
 });

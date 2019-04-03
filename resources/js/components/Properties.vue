@@ -22,8 +22,8 @@
                         {{ property.name | title }}
                     </span>
                 </div>
-                <div class="truncate">
-                    {{ property.value }}
+                <div class="truncate" :class="property.value.length ? '' : 'select-none'">
+                    {{ property.value.length ? property.value : '&empty;' }}
                 </div>
             </div>
 
@@ -49,8 +49,20 @@
         },
 
         watch: {
-            visitor_id(newId, oldId) {
-                this.fetchProperties()
+            visitor_id: {
+                handler(newId, oldId) {
+                    this.fetchProperties()
+
+                    if (oldId) {
+                        Echo.leave('businesses.'+this.$root.business.id+'.visitors.'+oldId+'.properties')
+                    }
+
+                    Echo.channel('businesses.'+this.$root.business.id+'.visitors.'+newId+'.properties')
+                    .listen('PropertiesUpdated', event => {
+                        this.fetchProperties()
+                    })
+                },
+                immediate: true
             }
         },
 
@@ -103,8 +115,8 @@
             },
         },
 
-        created() {
-            this.fetchProperties()
-        }
+        beforeDestroyed() {
+            Echo.leave('businesses.'+this.$root.business.id+'.visitors.'+this.visitor_id+'.properties')
+        },
     }
 </script>

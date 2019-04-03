@@ -12,9 +12,9 @@
             </div>
             <div class="overflow-y-scroll scrolling-touch" style="height: calc(100vh - 170px);">
                 <table class="people-table">
-                    <thead>
+                    <thead class="header-fixed">
                         <tr>
-                            <th v-for="fixedProperty in fixedProperties">
+                            <th v-for="fixedProperty in fixedProperties" class="">
                                 <i class="fa fa-star text-grey"></i>
                                 {{ fixedProperty | title }}
                             </th>
@@ -103,11 +103,14 @@
         thead {
             @apply .text-left .font-bold;
 
+            // @apply .border-b-2;
             tr {
-                @apply .border-b-2;
-
                 th {
+                    @apply .bg-grey-lightest;
                     @apply .p-4;
+                    // background: -moz-linear-gradient(top, #ffffff 98%, #999 100%);
+                    // background: -webkit-linear-gradient(top, #ffffff 98%,#999 100%);
+                    background: linear-gradient(to bottom, #ffffff calc(100% - 2px), #dae1e7 calc(100% - 2px));
                 }
             }
         }

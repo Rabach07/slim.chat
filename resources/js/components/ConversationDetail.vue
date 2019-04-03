@@ -1,7 +1,7 @@
 <template>
     <div class="flex-no-shrink flex items-center p-2 border-b">
         <div class="flex-1">
-            <h2 class="m-0">{{ conversation.name }}</h2>
+            <h2 class="m-0 ml-2">{{ conversation.name }}</h2>
         </div>
 
         <div>
@@ -33,7 +33,7 @@
                     status: 1 // Open
                 })
                 .then(response => {
-                    this.$bus.$emit('conversationSelected', this.conversation)
+                    this.$bus.$emit('conversationSelected', response.data)
                 })
             }
         }

@@ -54,7 +54,6 @@ Vue.filter('ago', function (value) {
 
 // Components
 Vue.component('chat-widget', require('./ChatWidget.vue').default)
-Vue.component('message', require('./Message.vue').default)
 
 // Vue!
 const app = new Vue({

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous">
 
     <!-- Scripts -->
-    <script src="{{ mix('/js/app.js') }}" defer></script>
+    {{-- <script src="{{ mix('/js/app.js') }}" defer></script> --}}
 
     <!-- Styles -->
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
@@ -25,12 +25,12 @@
             app_id: '12345'
         };
 
-        (function(d, w, t, f) {
-            t = d.createElement('script');
-            t.async = 1;
-            t.src = w;
-            f = d.getElementsByTagName('script')[0];
-            f.parentNode.insertBefore(t, f);
+        (function(s,l,i,m) {
+            i = s.createElement('script');
+            i.async = 1;
+            i.src = l;
+            m = s.getElementsByTagName('script')[0];
+            m.parentNode.insertBefore(i, m);
         })(document, '{{ mix('/slimchat.js') }}');
     </script>
 </head>

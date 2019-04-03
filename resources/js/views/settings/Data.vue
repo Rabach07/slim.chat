@@ -1,10 +1,10 @@
 <template>
-    <div class="h-screen overflow-y-scroll">
-        <div class="border-b p-4 mt-4">
+    <div class="h-screen flex flex-col overflow-y-scroll">
+        <div class="flex-no-shrink border-b p-4 mt-4">
             <h1 class="mb-0">Data</h1>
         </div>
 
-        <div class="p-4">
+        <div class="overflow-y-scroll h-full p-4">
             <form>
                 <div class="flex">
                     <div class="group flex-1">

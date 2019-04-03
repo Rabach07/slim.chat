@@ -1,13 +1,15 @@
 <template>
-    <div v-if="showConversation" class="sc-window">
-        <div class="flex p-3 flex-no-shrink items-center text-white font-bold border-b-2 border-green-dark select-none" style="background-color: var(--brand);">
-            <div v-if="conversation" @click="closeConversation()" class="mr-3 p-2 text-xl content-end cursor-pointer hover:bg-green-dark rounded">
+    <div v-if="showConversation" class="sc-window"
+        :style="'--primary: '+settings.colors.primary+';'+'--contrast: '+settings.colors.contrast+';'">
+        <div class="flex px-3 flex-no-shrink items-center text-white font-bold border-b-2 border-black-10 select-none"
+            style="background-color: var(--primary);">
+            <div v-if="conversation" @click="closeConversation()" class="mr-3 px-2 py-4 text-xl content-end cursor-pointer hover:bg-black-20 rounded">
                 <i class="fa fa-chevron-left"></i>
             </div>
             <div class="flex-1 flex items-center">
-                <img src="https://pbs.twimg.com/profile_images/1103654113865359361/rH-DxbuG_400x400.jpg" class="w-16 h-16 rounded-full border-white" />
+                <img :src="settings.logo" onerror="this.src='/images/utility/image.png'" class="w-16 h-16 rounded-full border-white" />
                 <div class="p-3">
-                    <div class="text-2xl">WeRoster</div>
+                    <div class="text-2xl text-contrast">WeRoster</div>
                     <span class="text-xs pl-1 pr-2 py-1 bg-white text-grey-darker rounded-full">
                         <i class="fa fa-fw fa-circle text-green"></i>
                         Online
@@ -19,11 +21,16 @@
         <div ref="c-conversation" class="overflow-y-scroll h-full">
             <message v-for="message in messages" :key="'message' + message.id" :message="message" />
 
-            <div v-if="!conversation">
-                <div class="px-3 py-2 text-sm font-bold text-grey-dark border-b-2 bg-grey-lightest select-none">Past Conversations</div>
+            <div v-if="!conversation" class="m-3 rounded-lg overflow-hidden shadow-lg">
+                <div class="flex px-3 py-2 text-sm text-grey-dark border-b-2 bg-grey-lighter select-none">
+                    <div class="flex-1 font-bold">
+                        Conversations
+                    </div>
+                    <div class="underline">View All</div>
+                </div>
 
-                <div v-for="conversation in conversations" @click="setConversation(conversation)" class="sc-conversation flex items-center">
-                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-8 h-8 m-2 ml-3 rounded-full" />
+                <div v-for="conversation in conversations" @click="setConversation(conversation)" class="sc-conversation flex items-center text-sm">
+                    <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200" class="w-8 h-8 m-1 ml-3 rounded-full" />
                     <div class="sc-conversation-subject flex-1 p-2 truncate">
                         <span class="text-grey-dark">"</span>{{ conversation.subject }}<span class="text-grey-dark">"</span>
                     </div>
@@ -38,7 +45,7 @@
             <div class="flex-1 mr-2">
                 <input type="text" v-model="messageInput" class="sc-input" maxlength="1024" placeholder="Type to start a conversation..." />
             </div>
-            <button @click.prevent="sendMessage()" :disabled="messageInput == ''" class="sc-button">
+            <button @click.prevent="sendMessage()" :disabled="messageInput == ''" class="sc-button text-contrast">
                 <i class="fa fa-paper-plane"></i>
             </button>
         </form>
@@ -46,12 +53,16 @@
 </template>
 
 <script>
+    import Message from './Message'
+
     export default {
-        props: ['app_id', 'visitor_uuid'],
+        components: { Message },
+
+        props: ['app_id', 'visitor_uuid', 'settings', 'show'],
 
         data() {
             return {
-                showConversation: false,
+                showConversation: this.show,
                 conversations: [],
                 conversation: null,
                 messages: [],
@@ -140,7 +151,8 @@
                 axios.get('/api/conversations', {
                     params: {
                         app_id: this.app_id,
-                        visitor_uuid: this.visitor_uuid
+                        visitor_uuid: this.visitor_uuid,
+                        limit: 3
                     }
                 })
                 .then(response => {
@@ -167,17 +179,17 @@
 
             this.fetchConversations()
 
-            window.addEventListener('message', message => {
-                this.toggleConversation(message.data.open)
-            }, false)
+            // window.addEventListener('message', message => {
+            //     this.toggleConversation(message.data.open)
+            // }, false)
         },
 
         destroyed() {
             console.log('ChatWidget destroyed.')
 
-            if (this.conversation) {
-                Echo.leave('conversations.' + this.conversation.id)
-            }
+            // if (this.conversation) {
+            //     Echo.leave('conversations.' + this.conversation.id)
+            // }
 
             // window.removeEventListener('message',)
         },
@@ -186,7 +198,6 @@
 
 <style lang="scss">
     .sc-window {
-        --brand: #38c172;
         @apply .flex-1 .h-full .flex .flex-col;
         @apply .bg-white .leading-normal .text-base;
     }
@@ -194,19 +205,17 @@
         @apply .p-2 .w-full .rounded;
         @apply .border-2;
         &:focus {
-            @apply .outline-none;
-            border-color: var(--brand);
+            @apply .outline-none .border-primary;
         }
     }
     .sc-button {
         @apply .px-3 .py-2 .text-white .border-2 .rounded;
-        border-color: rgba(0, 0, 0, 0.1);
-        background-color: var(--brand);
+        @apply .bg-primary .border-black-10;
     }
     .sc-conversation {
         @apply .border-b .cursor-pointer;
         &:hover {
-            background-color: #eee;
+            @apply .bg-grey-lightest;
         }
     }
     .sc-conversation-subject {
