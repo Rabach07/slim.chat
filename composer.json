@@ -17,6 +17,7 @@
         "laravel/nova": "~2.0",
         "laravel/telescope": "^2.0",
         "laravel/tinker": "^1.0",
+        "predis/predis": "^1.1",
         "pusher/pusher-php-server": "~3.0",
         "spatie/laravel-query-builder": "^1.16"
     },
