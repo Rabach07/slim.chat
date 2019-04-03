@@ -43,7 +43,7 @@
                 })
             },
             saveBusiness() {
-                axios.put('/api/businesses/' + this.$business.id, {
+                axios.put('/api/businesses/' + this.$root.business.id, {
                     name: this.business.name
                 })
                 .then(response => {
