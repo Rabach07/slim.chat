@@ -1,9 +1,9 @@
 <template>
-    <div class="h-screen">
-        <div class="border-b">
+    <div class="flex flex-col h-screen">
+        <div class="flex-no-stretch border-b">
             <input v-model="propertySearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search properties...">
         </div>
-        <div class="overflow-y-scroll" style="height: calc(100vh - 65px);">
+        <div class="overflow-y-scroll">
             <!-- <div class="p-4 border-b text-center select-none">
                 <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200"
                     class="w-24 h-24 rounded-full" /><br>

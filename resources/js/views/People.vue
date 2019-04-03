@@ -1,16 +1,18 @@
 <template>
     <div class="flex">
-        <div class="flex-1 border-r h-screen">
-            <div class="border-b p-4 mt-4">
-                <div class="flex items-baseline">
-                    <h1 class="mb-0">People</h1>
-                    <div class="mx-2 text-grey">showing {{ people.length }} of {{ peopleResponse.total }} people</div>
+        <div class="flex-1 flex flex-col border-r h-screen">
+            <div class="flex-no-stretch">
+                <div class="border-b p-4 mt-4">
+                    <div class="flex items-baseline">
+                        <h1 class="mb-0">People</h1>
+                        <div class="mx-2 text-grey">showing {{ people.length }} of {{ peopleResponse.total }} people</div>
+                    </div>
+                </div>
+                <div class="border-b">
+                    <input v-model="peopleSearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
                 </div>
             </div>
-            <div class="border-b">
-                <input v-model="peopleSearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
-            </div>
-            <div class="overflow-y-scroll scrolling-touch" style="height: calc(100vh - 170px);">
+            <div class="overflow-y-scroll scrolling-touch">
                 <table class="people-table">
                     <thead class="header-fixed">
                         <tr>
@@ -106,10 +108,8 @@
             // @apply .border-b-2;
             tr {
                 th {
-                    @apply .bg-grey-lightest;
+                    // @apply .bg-grey-lightest;
                     @apply .p-4;
-                    // background: -moz-linear-gradient(top, #ffffff 98%, #999 100%);
-                    // background: -webkit-linear-gradient(top, #ffffff 98%,#999 100%);
                     background: linear-gradient(to bottom, #ffffff calc(100% - 2px), #dae1e7 calc(100% - 2px));
                 }
             }

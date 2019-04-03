@@ -1,6 +1,6 @@
 <template>
-    <div class="h-screen">
-        <div class="border-b">
+    <div class="flex flex-col h-screen">
+        <div class="flex-no-stretch border-b">
             <input v-model="conversationSearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
         </div>
         <div class="flex border-b text-grey-darker select-none">

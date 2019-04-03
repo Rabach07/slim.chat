@@ -16,6 +16,12 @@
                 People
             </div>
         </router-link>
+        <router-link :to="{ name: 'auto' }">
+            <div class="mb-8 cursor-pointer">
+                <i class="fas fa-2x fa-bolt mb-2"></i><br>
+                Auto
+            </div>
+        </router-link>
         <router-link :to="{ name: 'profile' }">
             <div class="mb-8 cursor-pointer">
                 <i class="fas fa-2x fa-user-circle mb-2"></i><br>

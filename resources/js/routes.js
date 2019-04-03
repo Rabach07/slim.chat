@@ -21,6 +21,11 @@ let routes = [
                 component: require('./views/People').default
             },
             {
+                path: '/app/auto',
+                name: 'auto',
+                component: require('./views/Auto').default
+            },
+            {
                 path: '/app/profile',
                 name: 'profile',
                 component: require('./views/Profile').default
