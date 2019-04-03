@@ -86,7 +86,7 @@
                         width: this.showConversation ? '350px' : '0',
                         height: this.showConversation ? '500px': '0'
                     }
-                })
+                }, '*')
             },
             scrollToBottom(smooth) {
                 this.$nextTick(() => {
