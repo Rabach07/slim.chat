@@ -47,7 +47,7 @@
             window.parent.postMessage({
                 to: 'window',
                 open: open
-            });
+            }, '*');
         }
     </script>
 </body>

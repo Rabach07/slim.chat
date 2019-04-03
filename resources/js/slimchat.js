@@ -35,11 +35,11 @@ window.addEventListener('message', function (message) {
     if (message.data.to === 'bubble') {
         document.getElementById('slimchat-bubble').contentWindow.postMessage({
             open: message.data.open
-        })
+        }, '*')
     } else if (message.data.to === 'window') {
         document.getElementById('slimchat-window').contentWindow.postMessage({
             open: message.data.open
-        })
+        }, '*')
     } else if (message.data.to === 'parent') {
         document.getElementById('slimchat-window').style.width = message.data.data.width;
         document.getElementById('slimchat-window').style.height = message.data.data.height;
