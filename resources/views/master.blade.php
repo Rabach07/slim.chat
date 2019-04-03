@@ -31,7 +31,7 @@
             i.src = l;
             m = s.getElementsByTagName('script')[0];
             m.parentNode.insertBefore(i, m);
-        })(document, '{{ mix('/slimchat.js') }}');
+        })(document, '{{ env('app.url') }}/slimchat.js');
     </script>
 </head>
 <body>
