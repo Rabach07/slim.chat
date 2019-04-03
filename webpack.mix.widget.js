@@ -2,6 +2,8 @@ const mix = require('laravel-mix');
 
 var tailwindcss = require('tailwindcss');
 
+mix.js('resources/js/slimchat.js', 'public/slimchat.js');
+
 mix.js('resources/js/widget/widget.js', 'public/js')
     .sass('resources/sass/widget.scss', 'public/css')
     .options({
