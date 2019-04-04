@@ -23,7 +23,14 @@ let routes = [
             {
                 path: '/app/auto',
                 name: 'auto',
-                component: require('./views/Auto').default
+                component: require('./views/Auto').default,
+                children: [
+                    {
+                        path: '/app/auto/new',
+                        name: 'auto.new',
+                        component: require('./views/AutoNew').default
+                    }
+                ]
             },
             {
                 path: '/app/profile',

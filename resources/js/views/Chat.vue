@@ -1,5 +1,5 @@
 <template>
-    <div class="flex h-screen">
+    <div class="flex h-screen overflow-hidden">
         <div class="w-1/5 border-r">
             <conversations />
         </div>

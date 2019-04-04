@@ -105,10 +105,8 @@
         thead {
             @apply .text-left .font-bold;
 
-            // @apply .border-b-2;
             tr {
                 th {
-                    // @apply .bg-grey-lightest;
                     @apply .p-4;
                     background: linear-gradient(to bottom, #ffffff calc(100% - 2px), #dae1e7 calc(100% - 2px));
                 }

@@ -1,38 +1,45 @@
 <template>
     <div class="flex">
         <div class="flex-1 flex flex-col border-r h-screen">
-            <div class="flex-no-stretch border-b p-4 mt-4">
-                <div class="flex items-bottom">
-                    <h1 class="mb-0">Auto</h1>
-                    <div class="flex-1 text-right">
-                        <button class="button green">
-                            <i class="fas fa-fw fa-bolt"></i> New Auto
-                        </button>
+            <div class="overflow-y-scroll scrolling-touch flex">
+                <div class="flex flex-col w-1/4 border-r">
+                    <div class="border-b">
+                        <input type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
                     </div>
-                </div>
-            </div>
-            <div class="overflow-y-scroll scrolling-touch">
-                <div class="flex flex-wrap p-2">
-                    <div v-for="auto in autos" class="w-1/4 flex p-2 select-none" style="min-height: 110px;">
-                        <div class="flex-1 flex flex-col border-4 rounded-lg overflow-hidden hover:border-green cursor-pointer">
-                            <div class="flex-1 p-2">
-                                <h3 class="m-0">{{ auto }}</h3>
-                            </div>
-                            <div class="flex bg-grey-light p-2 pb-1">
-                                <div class="flex-1 text-green font-bold">
-                                    <i class="fas fa-circle"></i> Active
+                    <div class="p-2 overflow-y-scroll">
+                        <div class="p-2">
+                            <router-link :to="{ name: 'auto.new' }">
+                                <button class="button green w-full">
+                                    <i class="fas fa-fw fa-bolt"></i>
+                                    New Auto
+                                </button>
+                            </router-link>
+                        </div>
+                        <div v-for="auto in autos" class="flex p-2 select-none" style="min-height: 110px;">
+                            <div class="flex-1 flex flex-col border-4 rounded-lg overflow-hidden hover:border-green cursor-pointer">
+                                <div class="flex-1 p-2">
+                                    <h3 class="m-0">{{ auto }}</h3>
                                 </div>
-                                <div class="flex">
-                                    <div class="ml-4">
-                                        <i class="fas fa-hand-pointer"></i> 43
+                                <div class="flex bg-grey-light p-2 pb-1">
+                                    <div class="flex-1 text-green font-bold">
+                                        <i class="fas fa-circle"></i> Active
                                     </div>
-                                    <div class="ml-4">
-                                        <i class="fas fa-eye"></i> 24
+                                    <div class="flex">
+                                        <div class="ml-4">
+                                            <i class="fas fa-hand-pointer"></i> 43
+                                        </div>
+                                        <div class="ml-4">
+                                            <i class="fas fa-eye"></i> 24
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="flex-1 overflow-y-scroll">
+                    <router-view></router-view>
                 </div>
             </div>
         </div>
