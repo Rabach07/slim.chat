@@ -20,6 +20,7 @@ import router from './routes'
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('ago', require('./components/Ago').default)
+Vue.component('transition-expand', require('./components/TransitionExpand').default)
 
 /*
  * Global static Vue properties
