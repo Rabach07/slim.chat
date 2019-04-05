@@ -59,11 +59,13 @@
                                             <label>Condition</label>
                                             <select v-model="filter.condition" class="input mb-2">
                                                 <option :value="null" disabled>Select condition...</option>
-                                                <option>is equal to</option>
-                                                <option>is not equal to</option>
+                                                <option>is</option>
+                                                <option>is not</option>
+                                                <option>contains</option>
+                                                <option>does not contain</option>
                                                 <option>is greater than</option>
                                                 <option>is less than</option>
-                                                <option>is unknown</option>
+                                                <option>is empty</option>
                                                 <option>is anything</option>
                                             </select>
                                         </div>

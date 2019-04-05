@@ -47,7 +47,7 @@
                 conversationSearch: '',
                 selectedConversation: {},
                 conversations: [],
-                statuses: ['Closed', 'Open'],
+                statuses: ['Open', 'Closed'],
                 orders: ['Recent', 'Newest', 'Oldest'],
                 filters: {
                     status: 'Open',
@@ -77,7 +77,7 @@
             fetchConversations() {
                 axios.get('/api/conversations', {
                     params: {
-                        'filter[status]': this.statuses.indexOf(this.filters.status),
+                        'filter[status]': this.filters.status == 'Open' ? 1 : 0,
                         'sort': this.filters.order == 'Recent' ? '-updated_at' : this.filters.order == 'Newest' ? '-created_at' : 'created_at',
                         business_id: this.$root.business.id
                     }

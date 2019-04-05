@@ -89,6 +89,30 @@ a {
     }
 }
 
+div.alert {
+    @apply .inline-block .w-full .py-2 .px-4 .mb-3;
+    @apply .text-lg .border-4 .leading-normal;
+    @apply .rounded-lg;
+    border-color: rgba(0, 0, 0, 0.1);
+
+    strong {
+        @apply .px-2 .rounded-lg .bg-white-80 .font-bold;
+    }
+
+    &.info {
+        @apply .border-indigo .bg-indigo-lightest;
+    }
+    &.success {
+        @apply .border-green .bg-green-lightest;
+    }
+    &.warning {
+        @apply .border-orange .bg-orange-lightest;
+    }
+    &.danger {
+        @apply .border-red .bg-red-lightest;
+    }
+}
+
 button.button, a.button {
     @apply .inline-block .py-2 .px-3;
     @apply .text-lg .border-4 .rounded-lg;
@@ -130,7 +154,6 @@ form {
 
         p {
             @apply .mt-1 .mb-0;
-            @apply .select-none;
         }
     }
     div.actions {
@@ -171,6 +194,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 select.input:not([size]) {
+    @apply .pr-10;
     background-image:
         linear-gradient(45deg, transparent 50%, gray 50%),
         linear-gradient(135deg, gray 50%, transparent 50%);
@@ -181,6 +205,10 @@ select.input:not([size]) {
         5px 5px,
         5px 5px;
     background-repeat: no-repeat;
+}
+
+hr {
+    @apply .border-b .m-0;
 }
 
 label {
@@ -194,6 +222,34 @@ label {
 
 p {
     @apply .my-3 .leading-normal;
+}
+
+table.table {
+    @apply .w-full;
+
+    thead {
+        @apply .text-left .font-bold;
+
+        tr {
+            th {
+                @apply .p-4;
+                background: linear-gradient(to bottom, #ffffff calc(100% - 2px), #dae1e7 calc(100% - 2px));
+            }
+        }
+    }
+    tbody {
+        tr {
+            @apply .border-b;
+
+            td {
+                @apply .p-4;
+            }
+
+            &:hover {
+                @apply .bg-grey-lightest;
+            }
+        }
+    }
 }
 
 thead.header-fixed {

@@ -52,6 +52,7 @@ let colors = {
   'black-20': 'rgba(0, 0, 0, 0.2)',
   'black-10': 'rgba(0, 0, 0, 0.1)',
 
+  'white-80': 'rgba(255, 255, 255, 0.8)',
   'white-20': 'rgba(255, 255, 255, 0.2)',
   'white-10': 'rgba(255, 255, 255, 0.1)',
 
@@ -71,7 +72,7 @@ let colors = {
   'red': '#e3342f',
   // 'red-light': '#ef5753',
   // 'red-lighter': '#f9acaa',
-  // 'red-lightest': '#fcebea',
+  'red-lightest': '#fcebea',
 
   // 'orange-darkest': '#462a16',
   // 'orange-darker': '#613b1f',
@@ -79,7 +80,7 @@ let colors = {
   'orange': '#f6993f',
   // 'orange-light': '#faad63',
   // 'orange-lighter': '#fcd9b6',
-  // 'orange-lightest': '#fff5eb',
+  'orange-lightest': '#fff5eb',
 
   // 'yellow-darkest': '#453411',
   // 'yellow-darker': '#684f1d',
@@ -116,10 +117,10 @@ let colors = {
   // 'indigo-darkest': '#191e38',
   // 'indigo-darker': '#2f365f',
   // 'indigo-dark': '#5661b3',
-  // 'indigo': '#6574cd',
+  'indigo': '#6574cd',
   // 'indigo-light': '#7886d7',
   // 'indigo-lighter': '#b2b7ff',
-  // 'indigo-lightest': '#e6e8ff',
+  'indigo-lightest': '#e6e8ff',
 
   // 'purple-darkest': '#21183c',
   // 'purple-darker': '#382b5f',
