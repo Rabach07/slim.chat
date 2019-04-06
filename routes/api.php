@@ -28,12 +28,16 @@ Route::post('user/settings/{setting}', 'SettingController@update');
 Route::apiResource('businesses', 'BusinessController');
 
 // Business properties
-Route::get('businesses/{business}/properties', 'BusinessPropertyController@index');
+// REPLACED BY PROPERTY DEFINITIONS
+// Route::get('businesses/{business}/properties', 'BusinessPropertyController@index');
 
 // Business settings
 Route::get('businesses/{business}/settings', 'BusinessSettingController@index');
 Route::get('businesses/{business}/settings/{setting}', 'BusinessSettingController@show');
 Route::post('businesses/{business}/settings/{setting}', 'BusinessSettingController@update');
+
+// PropertyDefinitions
+Route::apiResource('businesses/{business}/properties', 'PropertyDefinitionController');
 
 // Visitors
 Route::apiResource('visitors', 'VisitorController');

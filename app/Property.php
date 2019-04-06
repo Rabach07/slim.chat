@@ -8,6 +8,8 @@ class Property extends Model
 {
     protected $fillable = ['visitor_id', 'name', 'value'];
 
+    protected $appends = ['type'];
+
     protected $casts = [
         'visitor_id' => 'integer',
     ];

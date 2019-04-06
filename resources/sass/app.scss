@@ -165,6 +165,13 @@ h1, h2, h3, h4, h5, h6 {
     @apply .mb-2 .mt-5;
 }
 
+.header {
+    @apply .sticky .pin-t .bg-white .z-20 .border-b .p-4 .pt-8;
+    h1 {
+        @apply .mb-0;
+    }
+}
+
 .input {
     @apply .w-full .py-2 .px-3;
     @apply .appearance-none .text-lg .border-4 .rounded-lg;

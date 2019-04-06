@@ -16,6 +16,8 @@ class BusinessSettingController extends Controller
      */
     public function index(Request $request, Business $business)
     {
+        $this->authorize('view', $business);
+
         return $business->settings;
     }
 
@@ -28,6 +30,8 @@ class BusinessSettingController extends Controller
      */
     public function show(Business $business, $setting)
     {
+        $this->authorize('view', $business);
+
         return $business->settings[$setting];
     }
 
@@ -41,6 +45,8 @@ class BusinessSettingController extends Controller
      */
     public function update(Request $request, Business $business, $setting)
     {
+        $this->authorize('update', $business);
+
         $setting = Setting::firstOrCreate([
             'business_id' => $business->id,
             'name'        => $setting,

@@ -20,7 +20,7 @@
                         <div class="group">
                             <div v-for="(filter, index) in filters" class="input flex mb-1">
                                 <div class="flex-1">
-                                    <span class="bg-grey-lighter px-1 rounded">{{ filter.property }}</span>
+                                    <span class="bg-grey-lighter px-1 rounded">{{ filter.property.name }}</span>
                                     <span>{{ filter.condition }}</span>
                                     <span class="bg-grey-lighter px-1 rounded">{{ filter.value }}</span>
                                 </div>
@@ -36,10 +36,14 @@
                                             <label>Property</label>
                                             <div v-if="filter.property" class="flex">
                                                 <div class="flex-1">
-                                                    <input v-model="filter.property" type="text" class="input mb-2" readonly>
+                                                    <input v-model="filter.property.name" type="text" class="input mb-2" readonly>
                                                 </div>
                                                 <div class="ml-2">
-                                                    <button @click="filter.property = null; propertiesSearch = '';" class="button" type="button">
+                                                    <button @click="
+                                                        filter.property = null;
+                                                        filter.condition = null;
+                                                        filter.value = null;
+                                                        propertiesSearch = '';" class="button" type="button">
                                                         <i class="fas fa-times"></i>
                                                     </button>
                                                 </div>
@@ -49,7 +53,9 @@
                                             <transition-expand>
                                                 <div v-if="!filter.property">
                                                     <select v-model="filter.property" class="input mb-2" size="5">
-                                                        <option v-for="property in propertiesFiltered">{{ property }}</option>
+                                                        <option v-for="property in propertiesFiltered" :value="property">
+                                                            {{ property.name }}
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </transition-expand>
@@ -57,23 +63,33 @@
 
                                         <div class="group">
                                             <label>Condition</label>
-                                            <select v-model="filter.condition" class="input mb-2">
+                                            <input v-if="!filter.property" type="text" class="input" placeholder="Select condition..." disabled>
+                                            <select v-else v-model="filter.condition" :disabled="!filter.property" class="input mb-2">
                                                 <option :value="null" disabled>Select condition...</option>
-                                                <option>is</option>
-                                                <option>is not</option>
-                                                <option>contains</option>
-                                                <option>does not contain</option>
-                                                <option>is greater than</option>
-                                                <option>is less than</option>
-                                                <option>is empty</option>
-                                                <option>is anything</option>
+                                                <option v-for="condition in allowedConditions[filter.property.type]">
+                                                    {{ condition }}
+                                                </option>
                                             </select>
                                         </div>
 
-                                        <div class="group">
-                                            <label>Value</label>
-                                            <input v-model="filter.value" type="text" class="input mb-2" placeholder="Enter value...">
-                                        </div>
+                                        <transition-expand>
+                                            <div v-if="!['is anything', 'is empty'].includes(filter.condition)" class="group">
+                                                <label>Value</label>
+                                                <div v-if="!filter.property || !filter.condition">
+                                                    <input v-model="filter.value" type="text" class="input" placeholder="Enter value..." disabled>
+                                                </div>
+                                                <div v-else-if="filter.property.type == 'boolean'">
+                                                    <select v-model="filter.value" class="input">
+                                                        <option :value="null" disabled>Select value...</option>
+                                                        <option :value="true">True</option>
+                                                        <option :value="false">False</option>
+                                                    </select>
+                                                </div>
+                                                <div v-else>
+                                                    <input v-model="filter.value" :type="filter.property.type" class="input" placeholder="Enter value...">
+                                                </div>
+                                            </div>
+                                        </transition-expand>
 
                                         <div class="flex">
                                             <div class="flex-1 mr-1">
@@ -119,6 +135,12 @@
                 properties: [],
                 filters: [],
                 showNewFilter: false,
+                allowedConditions: {
+                    text: ['is', 'is not', 'contains', 'does not contain', 'is empty', 'is anything'],
+                    number: ['is', 'is not', 'is greater than', 'is less than', 'is empty', 'is anything'],
+                    boolean: ['is', 'is not', 'is empty', 'is anything'],
+                    date: ['is', 'is not', 'is greater than', 'is less than', 'is empty', 'is anything'],
+                },
                 filter: {
                     property: null,
                     condition: null,
@@ -141,7 +163,7 @@
         computed: {
             propertiesFiltered() {
                 return filter(this.properties, property => {
-                    return String(property).toLowerCase().includes(this.propertiesSearch.toLowerCase())
+                    return String(property.name).toLowerCase().includes(this.propertiesSearch.toLowerCase())
                 })
             }
         },
