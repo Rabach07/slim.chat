@@ -73,7 +73,7 @@
                 })
             },
             fixedProperties() {
-                return this.$root.business.settings.fixed_properties.split(',')
+                return this.$root.business.settings.properties_fixed.split(',')
             }
         },
 

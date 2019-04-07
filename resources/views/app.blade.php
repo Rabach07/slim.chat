@@ -23,14 +23,14 @@
 
     <script>
         window.slimchat = {
-            business: {!! $business !!},
+            business_id: {!! $business_id !!},
             user: {!! $user !!}
         };
     </script>
 </head>
 <body>
     <div id="app">
-        <router-view></router-view>
+        <router-view v-if="ready"></router-view>
     </div>
 </body>
 </html>

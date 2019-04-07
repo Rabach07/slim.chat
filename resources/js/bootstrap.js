@@ -43,6 +43,7 @@ window.axios.interceptors.response.use(
                 })
                 break
             case 422:
+            case 500:
                 if (error.response.data.errors != null) {
                     let messages = error.response.data.errors
                     messages = messages[Object.keys(error.response.data.errors)[0]]

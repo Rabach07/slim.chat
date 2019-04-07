@@ -41,7 +41,7 @@
                 <div class="flex-1 py-1">
                     <a href="{{ url('/') }}" class="flex items-end inline-block py-3 px-2 text-2xl text-green hover:text-green focus:text-green font-bold">
                         <div class="mr-3">
-                            <img src="/images/logo.svg" class="block w-8 h-8">
+                            <img src="/images/logo.png" class="block w-8 h-8">
                         </div>
                         <div>
                             {{ config('app.name') }}

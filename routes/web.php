@@ -27,9 +27,10 @@ Route::view('widget/window', 'widget-window');
 
 // App
 Route::get('/app{any}', function () {
-    $business = App\Business::find(1);
-    // $business->settings = $business->settings;
+    $business_id = 1; //= App\Business::find(1)->with('propertyDefinitions')->first();
+    // $businessArray = $business->toArray();
+    // $businessArray['settings'] = $business->settings->pluck('value', 'name');
     $user = auth()->user();
 
-    return view('app', compact('business', 'user', 'conversations'));
+    return view('app', compact('business_id', 'user'));
 })->where('any', '.*')->middleware('auth');

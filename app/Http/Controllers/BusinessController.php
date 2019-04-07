@@ -19,6 +19,8 @@ class BusinessController extends Controller
     {
         $this->authorize('view', $business);
 
+        $business = Business::find($business->id)->with('settings', 'propertyDefinitions')->first();
+
         return response()->json([
             'data' => $business,
         ]);

@@ -4,13 +4,6 @@
             <input v-model="propertySearch" type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search properties...">
         </div>
         <div class="overflow-y-scroll">
-            <!-- <div class="p-4 border-b text-center select-none">
-                <img src="https://www.gravatar.com/avatar/3eb3cc7bc4edce1206e5ca987df33fda?s=200"
-                    class="w-24 h-24 rounded-full" /><br>
-
-                <div class="font-bold mt-3 text-lg">Jack Cruden</div>
-            </div> -->
-
             <div v-for="property in propertiesFiltered" class="items-center p-4 border-b">
                 <div class="mb-2 text-xs text-grey font-semibold uppercase truncate select-none">
                     <span v-if="property.fixed" class="text-orange">
@@ -22,8 +15,8 @@
                         {{ property.name | title }}
                     </span>
                 </div>
-                <div class="truncate" :class="property.value.length ? '' : 'select-none'">
-                    {{ property.value.length ? property.value : '&empty;' }}
+                <div class="truncate" :class="!property.value ? 'select-none' : ''">
+                    {{ property.value ? property.value : '&empty;' }}
                 </div>
             </div>
 
@@ -68,17 +61,21 @@
 
         computed: {
             propertiesFiltered() {
-                let properties = []
-                let fixedProperties = this.$root.business.settings.fixed_properties.split(',')
+                let fixedProperties = this.$root.business.settings.properties_fixed.split(',')
+                let propertyDefinitions = this.$root.business.property_definitions
+                let propertyDefinitionNames = Object.keys(this.$root.business.property_definitions)
+                let properties = _.mapValues(_.keyBy(this.properties, 'name'), 'value')
 
-                // Determine fixed properties
-                properties = this.properties.map(property => {
+                let test = propertyDefinitionNames.map(propertyDefinition => {
                     return {
-                        fixed: fixedProperties.includes(property.name),
-                        name: property.name,
-                        value: property.value
+                        fixed: fixedProperties.includes(propertyDefinition),
+                        name: propertyDefinition,
+                        type: propertyDefinitions[propertyDefinition],
+                        value: properties[propertyDefinition],
                     }
                 })
+                console.log(test)
+                return test
 
                 // Filter by search
                 properties = filter(properties, property => {

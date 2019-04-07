@@ -47,18 +47,40 @@ class BusinessSettingController extends Controller
     {
         $this->authorize('update', $business);
 
-        $setting = Setting::firstOrCreate([
+        $setting = Setting::updateOrCreate([
             'business_id' => $business->id,
             'name'        => $setting,
-        ]);
-
-        $setting->update([
+        ], [
             'value' => $request->value,
         ]);
 
         event(new BusinessUpdated($business));
 
         return $setting;
+    }
+
+    public function store(Request $request, Business $business)
+    {
+        $this->authorize('update', $business);
+
+        $request->validate([
+            'settings' => 'required',
+        ]);
+
+        foreach ($request->settings as $name => $value) {
+            $setting = Setting::updateOrCreate([
+                'business_id' => $business->id,
+                'name'        => $name,
+            ], [
+                'value' => $value,
+            ]);
+        }
+
+        event(new BusinessUpdated($business));
+
+        return response()->json([
+            'data' => $business->settings,
+        ]);
     }
 
     /**

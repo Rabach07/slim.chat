@@ -2,7 +2,6 @@
 
 use App\Events\PropertiesUpdated;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +32,7 @@ Route::apiResource('businesses', 'BusinessController');
 
 // Business settings
 Route::get('businesses/{business}/settings', 'BusinessSettingController@index');
+Route::post('businesses/{business}/settings', 'BusinessSettingController@store');
 Route::get('businesses/{business}/settings/{setting}', 'BusinessSettingController@show');
 Route::post('businesses/{business}/settings/{setting}', 'BusinessSettingController@update');
 
@@ -80,26 +80,6 @@ Route::post('announce', function (Request $request) {
     return response()->json([
         'data' => [
             'uuid' => $visitor->uuid,
-            // 'properties' => $visitor->props,
         ],
     ]);
 });
-
-// Route::get('import', function () {
-//     $file = json_decode(Storage::get('imports/import2.json'), true);
-
-//     foreach ($file as $key => $data) {
-//         $visitor = App\Visitor::get(1); // business_id:1
-
-//         App\Property::set($visitor->id, 'email', $key);
-
-//         foreach ($data as $name => $value) {
-//             $name = \Illuminate\Support\Str::slug($name);
-//             $name = str_replace('-', '_', $name);
-
-//             App\Property::set($visitor->id, $name, $value);
-
-//             echo $name.'<br>';
-//         }
-//     }
-// });

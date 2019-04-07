@@ -42,6 +42,8 @@ var Favico = require('favico.js')
 Vue.prototype.$favico = new Favico({ position: 'up', animation: 'none' })
 var startCase = require('lodash/startCase')
 var camelCase = require('lodash/camelCase')
+var keyBy = require('lodash/keyBy')
+var mapValues = require('lodash/mapValues')
 var distanceInWordsStrict = require('date-fns/distance_in_words_strict')
 
 // Toasted
@@ -52,11 +54,11 @@ Vue.use(Toasted, {
     iconPack: 'fontawesome',
     className: 'toast'
 })
+// Use: this.$toasted.global.saved()
 Vue.toasted.register('saved', 'Saved successfully!', {
     type: 'success',
     icon: 'fa-check-circle'
 })
-// this.$toasted.global.saved()
 
 /*
  * Register filters
@@ -85,8 +87,10 @@ var app = new Vue({
     el: '#app',
 
     data: {
+        ready: false,
+        business_id: window.slimchat.business_id,
         user: window.slimchat.user,
-        business: window.slimchat.business,
+        business: {},
         conversations: []
     },
 
@@ -101,15 +105,18 @@ var app = new Vue({
             //
         },
         fetchBusiness() {
-            axios.get('/api/businesses/' + this.business.id)
+            axios.get('/api/businesses/' + this.business_id)
             .then(response => {
                 this.business = response.data.data
+                this.business.settings = _.mapValues(_.keyBy(this.business.settings, 'name'), 'value')
+                this.business.property_definitions = _.mapValues(_.keyBy(this.business.property_definitions, 'name'), 'type')
+                this.ready = true
             })
         },
         fetchConversations() {
             axios.get('/api/conversations?filter[status]=1', {
                 params: {
-                    business_id: this.business.id
+                    business_id: this.business_id
                 }
             })
             .then(response => {
@@ -119,14 +126,15 @@ var app = new Vue({
     },
 
     created() {
+        this.fetchBusiness()
         this.fetchConversations()
 
-        Echo.channel('businesses.' + this.business.id + '.conversations')
+        Echo.channel('businesses.' + this.business_id + '.conversations')
         .listen('ConversationUpdated', event => {
             this.fetchConversations()
         })
 
-        Echo.channel('businesses.' + this.business.id)
+        Echo.channel('businesses.' + this.business_id)
         .listen('BusinessUpdated', event => {
             this.business = event.business
         })
@@ -137,8 +145,8 @@ var app = new Vue({
     },
 
     beforeDestroyed() {
-        Echo.leave('businesses.' + this.business.id)
-        Echo.leave('businesses.' + this.business.id + '.conversations')
+        Echo.leave('businesses.' + this.business_id)
+        Echo.leave('businesses.' + this.business_id + '.conversations')
     },
 
     router

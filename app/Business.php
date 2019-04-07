@@ -8,8 +8,6 @@ class Business extends Model
 {
     protected $fillable = ['app_id', 'owner_id', 'name'];
 
-    protected $appends = ['settings'];
-
     protected $casts = [
         'app_id'   => 'integer',
         'owner_id' => 'integer',
@@ -25,6 +23,11 @@ class Business extends Model
         return $this->hasMany(Conversation::class);
     }
 
+    public function settings()
+    {
+        return $this->hasMany(Setting::class);
+    }
+
     public function propertyDefinitions()
     {
         return $this->hasMany(PropertyDefinition::class);
@@ -33,12 +36,5 @@ class Business extends Model
     public static function findByAppId(?string $app_id): ?Business
     {
         return Business::whereAppId($app_id)->first();
-    }
-
-    public function getSettingsAttribute()
-    {
-        $settings = Setting::whereBusinessId($this->id)->get();
-
-        return $settings->pluck('value', 'name');
     }
 }

@@ -173,7 +173,7 @@
                 this.fixedPropertiesSelected = []
             },
             fetchSettings() {
-                axios.get('/api/businesses/1/settings/fixed_properties')
+                axios.get('/api/businesses/1/settings/properties_fixed')
                 .then(response => {
                     this.fixedProperties = response.data ? response.data.split(',') : []
                 })
@@ -185,7 +185,7 @@
                 })
             },
             saveSettings() {
-                axios.post('/api/businesses/1/settings/fixed_properties', {
+                axios.post('/api/businesses/1/settings/properties_fixed', {
                     value: this.fixedProperties.join(',')
                 })
                 .then(response => {

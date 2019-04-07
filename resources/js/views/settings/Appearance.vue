@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="actions">
-                        <button @click.prevent="save()" class="button green">
+                        <button @click.prevent="saveAppearance()" class="button green">
                             Save
                         </button>
                     </div>
@@ -81,8 +81,16 @@
         },
 
         methods: {
-            save() {
-                //
+            saveAppearance() {
+                axios.post('/api/businesses/1/settings', {
+                    settings: {
+                        color_primary: this.settings.colors.primary,
+                        color_contrast: this.settings.colors.contrast
+                    }
+                })
+                .then(response => {
+                    this.$toasted.global.saved()
+                })
             },
             onLogoChange(event) {
                 var files = event.target.files || event.dataTransfer.files
