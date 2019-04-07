@@ -6,18 +6,11 @@
 
     {{-- <link href="{{ mix('/css/widget.css') }}" rel="stylesheet"> --}}
     <link href="/css/widget.css" rel="stylesheet">
-
-    <script>
-        // For testing
-        window.slimchat = {
-            app_id: '12345'
-        };
-    </script>
 </head>
 <body>
     <div id="app">
         <chat-widget v-if="ready" :app_id="app_id" :visitor_uuid="visitor_uuid"
-        :settings="{logo:'',colors:{primary:'',contrast:''}}" />
+        :settings="settings" />
     </div>
 
     {{-- <script src="{{ mix('js/widget.js') }}"></script> --}}

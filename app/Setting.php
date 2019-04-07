@@ -17,4 +17,10 @@ class Setting extends Model
     {
         return $this->belongsTo(Business::class);
     }
+
+    public static function get($businessId, $name)
+    {
+        return Setting::whereBusinessId($businessId)
+            ->whereName($name)->first();
+    }
 }

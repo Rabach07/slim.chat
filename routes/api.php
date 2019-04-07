@@ -26,11 +26,7 @@ Route::post('user/settings/{setting}', 'SettingController@update');
 // Businesses
 Route::apiResource('businesses', 'BusinessController');
 
-// Business properties
-// REPLACED BY PROPERTY DEFINITIONS
-// Route::get('businesses/{business}/properties', 'BusinessPropertyController@index');
-
-// Business settings
+// Business Settings
 Route::get('businesses/{business}/settings', 'BusinessSettingController@index');
 Route::post('businesses/{business}/settings', 'BusinessSettingController@store');
 Route::get('businesses/{business}/settings/{setting}', 'BusinessSettingController@show');
@@ -64,7 +60,7 @@ Route::post('announce', function (Request $request) {
     App\Property::set($visitor->id, 'platform', $agent->isDesktop() ? 'desktop' : 'mobile');
     App\Property::set($visitor->id, 'operating_system', $agent->platform().' '.$agent->version($agent->platform()));
     App\Property::set($visitor->id, 'browser', $agent->browser().' '.$agent->version($agent->browser()));
-    App\Property::set($visitor->id, 'language', $agent->languages()[0]);
+    App\Property::set($visitor->id, 'language', count($agent->languages()) ? $agent->languages()[0] : '');
 
     // Geo info
     $ip = request()->ip();
@@ -79,7 +75,14 @@ Route::post('announce', function (Request $request) {
 
     return response()->json([
         'data' => [
-            'uuid' => $visitor->uuid,
+            'uuid'     => $visitor->uuid,
+            'business' => [
+                'name' => $business->name,
+            ],
+            'settings' => [
+                'color_primary'  => optional(App\Setting::get($business->id, 'color_primary'))->value,
+                'color_contrast' => optional(App\Setting::get($business->id, 'color_contrast'))->value,
+            ],
         ],
     ]);
 });

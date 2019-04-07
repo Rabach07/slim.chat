@@ -1,6 +1,6 @@
 <template>
     <div v-if="showConversation" class="sc-window"
-        :style="'--primary: '+settings.colors.primary+';'+'--contrast: '+settings.colors.contrast+';'">
+        :style="'--primary: '+settings.color_primary+';'+'--contrast: '+settings.color_contrast+';'">
         <div class="flex px-3 flex-no-shrink items-center text-white font-bold border-b-2 border-black-10 select-none"
             style="background-color: var(--primary);">
             <div v-if="conversation" @click="closeConversation()" class="mr-3 px-2 py-4 text-xl content-end cursor-pointer hover:bg-black-20 rounded">

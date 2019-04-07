@@ -94,13 +94,13 @@
                                         <div class="flex">
                                             <div class="flex-1 mr-1">
                                                 <button @click="dismissNewFilter()" type="button" class="button w-full">
-                                                    Close
+                                                    <i class="fas fa-times"></i> Close
                                                 </button>
                                             </div>
                                             <div class="flex-1 ml-1">
                                                 <button @click="addFilter()" type="button" class="button green w-full"
                                                     :disabled="!filter.property || !filter.condition">
-                                                    Add
+                                                    <i class="fas fa-plus"></i> Add
                                                 </button>
                                             </div>
                                         </div>
@@ -109,7 +109,9 @@
                             </transition-expand>
 
                             <div v-if="!showNewFilter">
-                                <button @click="showNewFilter = true" type="button" class="button green w-full">New Filter</button>
+                                <button @click="showNewFilter = true" type="button" class="button green w-full">
+                                    <i class="fas fa-filter"></i> New Filter
+                                </button>
                             </div>
                         </div>
                     </div>

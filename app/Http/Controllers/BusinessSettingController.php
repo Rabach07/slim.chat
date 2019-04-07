@@ -32,7 +32,7 @@ class BusinessSettingController extends Controller
     {
         $this->authorize('view', $business);
 
-        return $business->settings[$setting];
+        return Setting::get($business->id, $setting);
     }
 
     /**
