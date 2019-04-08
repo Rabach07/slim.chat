@@ -32,16 +32,13 @@ window.addEventListener('message', function (message) {
     console.log('message received by parent');
     console.log(message)
 
-    if (message.data.to === 'bubble') {
-        document.getElementById('slimchat-bubble').contentWindow.postMessage({
-            open: message.data.open
-        }, '*')
-    } else if (message.data.to === 'window') {
-        document.getElementById('slimchat-window').contentWindow.postMessage({
-            open: message.data.open
-        }, '*')
-    } else if (message.data.to === 'parent') {
-        document.getElementById('slimchat-window').style.width = message.data.data.width;
-        document.getElementById('slimchat-window').style.height = message.data.data.height;
+   if (message.data.to === 'parent') {
+        if (message.data.open) {
+            document.getElementById('slimchat-window').style.width = '350px';
+            document.getElementById('slimchat-window').style.height = '500px';
+        } else {
+            document.getElementById('slimchat-window').style.width = '0px';
+            document.getElementById('slimchat-window').style.height = '0px';
+        }
     }
 }, false);

@@ -46,7 +46,7 @@
             document.getElementById('closed').style.display = open ? 'none' : 'inline';
 
             window.parent.postMessage({
-                to: 'window',
+                to: 'parent',
                 open: open
             }, '*');
         }

@@ -6,6 +6,7 @@ use App\Business;
 use App\Events\BusinessUpdated;
 use App\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BusinessSettingController extends Controller
 {
@@ -57,6 +58,15 @@ class BusinessSettingController extends Controller
         event(new BusinessUpdated($business));
 
         return $setting;
+    }
+
+    public function updateLogo(Request $request, Business $business)
+    {
+        $request->validate([
+            'logo' => 'required|mimetypes:image/png|dimensions:ratio=1,min_width=128,min_height=128',
+        ]);
+
+        Storage::putFileAs('public/business_logos', $request->file('logo'), $business->app_id.'.png');
     }
 
     public function store(Request $request, Business $business)

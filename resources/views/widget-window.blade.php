@@ -9,8 +9,7 @@
 </head>
 <body>
     <div id="app">
-        <chat-widget v-if="ready" :app_id="app_id" :visitor_uuid="visitor_uuid"
-        :settings="settings" />
+        <chat-widget v-if="ready" :app_id="app_id" :visitor_uuid="visitor_uuid" :business="business" :settings="settings" />
     </div>
 
     {{-- <script src="{{ mix('js/widget.js') }}"></script> --}}

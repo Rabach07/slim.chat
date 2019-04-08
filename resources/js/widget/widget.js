@@ -65,6 +65,7 @@ const app = new Vue({
         ready: false,
         app_id: null,
         visitor_uuid: null,
+        business: {},
         settings: {},
     },
 
@@ -86,6 +87,7 @@ const app = new Vue({
             this.visitor_uuid = response.data.data.uuid
             localStorage.setItem('slimchat.visitor_uuid', this.visitor_uuid)
 
+            this.business = response.data.data.business
             this.settings = response.data.data.settings
 
             this.ready = true

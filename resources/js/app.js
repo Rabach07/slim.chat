@@ -50,7 +50,7 @@ var distanceInWordsStrict = require('date-fns/distance_in_words_strict')
 import Toasted from 'vue-toasted'
 Vue.use(Toasted, {
     position: 'top-right',
-    duration: 3000,
+    duration: 5000,
     iconPack: 'fontawesome',
     className: 'toast'
 })

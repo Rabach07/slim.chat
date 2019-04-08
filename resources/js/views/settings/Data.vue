@@ -175,7 +175,7 @@
             fetchSettings() {
                 axios.get('/api/businesses/1/settings/properties_fixed')
                 .then(response => {
-                    this.fixedProperties = response.data ? response.data.split(',') : []
+                    this.fixedProperties = response.data.value ? response.data.value.split(',') : []
                 })
             },
             fetchProperties() {

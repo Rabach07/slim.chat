@@ -1,5 +1,5 @@
 <template>
-    <div v-if="showConversation" class="sc-window"
+    <div class="sc-window"
         :style="'--primary: '+settings.color_primary+';'+'--contrast: '+settings.color_contrast+';'">
         <div class="flex px-3 flex-no-shrink items-center text-white font-bold border-b-2 border-black-10 select-none"
             style="background-color: var(--primary);">
@@ -7,9 +7,9 @@
                 <i class="fa fa-chevron-left"></i>
             </div>
             <div class="flex-1 flex items-center">
-                <img :src="settings.logo" onerror="this.src='/images/utility/image.png'" class="w-16 h-16 rounded-full border-white" />
+                <img :src="settings.logo" onerror="this.src='/images/utility/image.png'" class="w-16 h-16" />
                 <div class="p-3">
-                    <div class="text-2xl text-contrast">WeRoster</div>
+                    <div class="text-2xl text-contrast">{{ business.name }}</div>
                     <span class="text-xs pl-1 pr-2 py-1 bg-white text-grey-darker rounded-full">
                         <i class="fa fa-fw fa-circle text-green"></i>
                         Online
@@ -26,7 +26,6 @@
                     <div class="flex-1 font-bold">
                         Conversations
                     </div>
-                    <div class="underline">View All</div>
                 </div>
 
                 <div v-for="conversation in conversations" @click="setConversation(conversation)" class="sc-conversation flex items-center text-sm">
@@ -58,11 +57,10 @@
     export default {
         components: { Message },
 
-        props: ['app_id', 'visitor_uuid', 'settings', 'show'],
+        props: ['app_id', 'visitor_uuid', 'business', 'settings'],
 
         data() {
             return {
-                showConversation: this.show,
                 conversations: [],
                 conversation: null,
                 messages: [],
@@ -72,21 +70,7 @@
 
         methods: {
             toggleConversation(show = null) {
-                if (show != null) {
-                    this.showConversation = show
-                } else {
-                    this.showConversation = !this.showConversation
-                }
-
-                this.scrollToBottom()
-
-                window.parent.postMessage({
-                    to: 'parent',
-                    data: {
-                        width: this.showConversation ? '350px' : '0',
-                        height: this.showConversation ? '500px': '0'
-                    }
-                }, '*')
+                // this.scrollToBottom()
             },
             scrollToBottom(smooth) {
                 this.$nextTick(() => {
