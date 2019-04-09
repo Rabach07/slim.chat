@@ -12,7 +12,7 @@
         <chat-widget v-if="ready" :app_id="app_id" :visitor_uuid="visitor_uuid" :business="business" :settings="settings" />
     </div>
 
-    {{-- <script src="{{ mix('js/widget.js') }}"></script> --}}
-    <script src="/js/widget.js"></script>
+    <script src="{{ mix('js/widget.js') }}"></script>
+    {{-- <script src="/js/widget.js"></script> --}}
 </body>
 </html>

@@ -47,14 +47,19 @@ let routes = [
                         component: require('./views/settings/Data').default
                     },
                     {
-                        path: 'appearance',
-                        name: 'appearance',
-                        component: require('./views/settings/Appearance').default
+                        path: 'general',
+                        name: 'settings.widget.general',
+                        component: require('./views/settings/widget/General').default
                     },
                     {
-                        path: 'behaviour',
-                        name: 'settings.behaviour',
-                        component: require('./views/settings/Behaviour').default
+                        path: 'appearance',
+                        name: 'settings.widget.appearance',
+                        component: require('./views/settings/widget/Appearance').default
+                    },
+                    {
+                        path: 'behavior',
+                        name: 'settings.widget.behavior',
+                        component: require('./views/settings/widget/Behavior').default
                     },
                     {
                         path: 'account',

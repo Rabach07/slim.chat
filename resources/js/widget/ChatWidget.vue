@@ -12,7 +12,7 @@
                     <div class="text-2xl text-contrast">{{ business.name }}</div>
                     <span class="text-xs pl-1 pr-2 py-1 bg-white text-grey-darker rounded-full">
                         <i class="fa fa-fw fa-circle text-green"></i>
-                        Online
+                        Available
                     </span>
                 </div>
             </div>
@@ -21,8 +21,8 @@
         <div ref="c-conversation" class="overflow-y-scroll h-full">
             <message v-for="message in messages" :key="'message' + message.id" :message="message" />
 
-            <div v-if="!conversation" class="m-3 rounded-lg overflow-hidden shadow-lg">
-                <div class="flex px-3 py-2 text-sm text-grey-dark border-b-2 bg-grey-lighter select-none">
+            <div v-if="!conversation" class="m-3 rounded-lg overflow-hidden border border-black-10">
+                <div class="flex px-3 py-2 text-sm text-grey-dark border-b bg-grey-lighter select-none">
                     <div class="flex-1 font-bold">
                         Conversations
                     </div>
@@ -39,6 +39,13 @@
                 </div>
             </div>
         </div>
+
+        <a v-if="!conversation" href="https://slim.chat" class="p-1 text-center text-grey-dark text-sm no-underline">
+            Powered by
+            <span class="font-bold text-green">
+                <img src="/images/logo.png" class="h-4 align-text-top"> Slim Chat
+            </span>
+        </a>
 
         <form class="sc-messagebar">
             <div class="flex-1 mr-2">
@@ -197,7 +204,7 @@
         @apply .bg-primary .border-black-10;
     }
     .sc-conversation {
-        @apply .border-b .cursor-pointer;
+        @apply .border-t .cursor-pointer;
         &:hover {
             @apply .bg-grey-lightest;
         }

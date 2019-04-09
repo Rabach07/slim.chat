@@ -1,7 +1,7 @@
 <template>
     <div class="h-screen flex flex-col overflow-y-scroll">
         <div class="flex-no-shrink border-b p-4 mt-4">
-            <h1 class="mb-0">Appearance</h1>
+            <h1 class="mb-0">Widget Appearance</h1>
         </div>
 
         <div class="flex overflow-y-scroll h-full p-4">
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-    import ChatWidget from './../../widget/ChatWidget'
+    import ChatWidget from './../../../widget/ChatWidget'
 
     export default {
         components: { ChatWidget },

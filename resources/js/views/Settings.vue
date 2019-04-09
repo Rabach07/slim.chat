@@ -13,12 +13,17 @@
                 <div class="py-1 px-4 w-full bg-grey-dark text-white font-semibold">
                     <i class="fas fa-fw fa-window-restore"></i> Widget
                 </div>
-                <router-link :to="{ name: 'appearance' }">
+                <router-link :to="{ name: 'settings.widget.general' }">
+                    <div class="p-4 border-b hover:bg-grey-lighter cursor-pointer">
+                        General
+                    </div>
+                </router-link>
+                <router-link :to="{ name: 'settings.widget.appearance' }">
                     <div class="p-4 border-b hover:bg-grey-lighter cursor-pointer">
                         Appearance
                     </div>
                 </router-link>
-                <router-link :to="{ name: 'settings.behaviour' }">
+                <router-link :to="{ name: 'settings.widget.behavior' }">
                     <div class="p-4 border-b hover:bg-grey-lighter cursor-pointer">
                         Behaviour
                     </div>

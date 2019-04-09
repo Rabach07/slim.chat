@@ -31,6 +31,11 @@ class BusinessController extends Controller
         $this->authorize('create', $business);
 
         // TODO Store business
+
+        // These settings need to be set:
+        // properties_fixed: 'name'
+        // timezone: 'Pacific/Auckland'
+        // hours: []
     }
 
     public function update(Request $request, Business $business)

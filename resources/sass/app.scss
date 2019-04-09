@@ -82,7 +82,7 @@ html, body {
 }
 
 a {
-    @apply .text-grey-darkest .no-underline;
+    @apply .text-grey-darkest;
 
     &:hover, &:focus {
         @apply .text-black;
@@ -185,6 +185,13 @@ h1, h2, h3, h4, h5, h6 {
         @apply .bg-grey-lighter .cursor-not-allowed;
     }
 
+    // Work in progress
+    &[type="checkbox"] {
+        @apply .flex .inline-block;
+        height: 50px;
+        width: 50px;
+    }
+
     &[type="color"] {
         min-width: 50px;
         max-width: 50px;
@@ -197,6 +204,18 @@ h1, h2, h3, h4, h5, h6 {
         &::-webkit-color-swatch {
             @apply .border-none;
         }
+    }
+
+    &[type="time"] {
+        padding: 4px 0.75rem 5px 0.75rem;
+    }
+}
+
+// Work in progress
+div.checkbox {
+    @apply .flex .items-center .w-full;
+    label {
+        @apply .ml-3 .appearance-none .text-lg .text-grey-darkest .font-normal;
     }
 }
 
