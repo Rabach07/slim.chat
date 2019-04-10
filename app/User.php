@@ -16,7 +16,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'seen',
     ];
 
     /**
@@ -35,7 +35,10 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'seen'              => 'datetime',
     ];
+
+    protected $appends = ['status'];
 
     public function businesses()
     {
@@ -47,5 +50,22 @@ class User extends Authenticatable implements MustVerifyEmail
         $settings = Setting::whereUserId($this->id)->get();
 
         return $settings->pluck('value', 'name');
+    }
+
+    /**
+     * User status: online, offline, away.
+     *
+     * @return string
+     */
+    public function getStatusAttribute(): String
+    {
+        return 'online';
+    }
+
+    public function see()
+    {
+        $this->update([
+            'seen' => now(),
+        ]);
     }
 }

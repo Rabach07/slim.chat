@@ -4,10 +4,10 @@
             <div class="flex-no-shrink border-b p-4 mt-4">
                 <h1 class="mb-0">Settings</h1>
             </div>
-            <div class="overflow-y-scroll">
+            <div id="settings-navigation" class="overflow-y-scroll">
                 <router-link :to="{ name: 'settings' }">
                     <div class="p-4 border-b hover:bg-grey-lighter cursor-pointer">
-                        Data
+                        Properties
                     </div>
                 </router-link>
                 <div class="py-1 px-4 w-full bg-grey-dark text-white font-semibold">
@@ -74,3 +74,9 @@
         },
     }
 </script>
+
+<style lang="scss">
+    #settings-navigation a {
+        @apply .no-underline;
+    }
+</style>

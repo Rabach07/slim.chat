@@ -82,7 +82,7 @@ html, body {
 }
 
 a {
-    @apply .text-grey-darkest;
+    @apply .underline .text-grey-darkest;
 
     &:hover, &:focus {
         @apply .text-black;

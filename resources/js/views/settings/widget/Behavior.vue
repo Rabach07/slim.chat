@@ -9,10 +9,12 @@
                 <form>
                     <div class="group">
                         <label>Timezone</label>
-                        <select v-model="settings.timezone" class="input">
-                            <option :value="undefined" disabled>Select timezone...</option>
-                            <option v-for="timezone in timezones" :value="timezone">{{ timezone }}</option>
-                        </select>
+                        <p>
+                            Your timezone is set to
+                            <router-link :to="{ name: 'settings.account' }">
+                                {{ $root.business.settings.timezone }}.
+                            </router-link>
+                        </p>
                     </div>
 
                     <div class="group">
@@ -76,10 +78,8 @@
         data() {
             return {
                 settings: {
-                    timezone: this.$root.business.settings.timezone,
                     hours: this.$root.business.settings.hours ? JSON.parse(this.$root.business.settings.hours) : []
                 },
-                timezones: [],
                 newHour: {
                     day: null,
                     startTime: null,
@@ -109,16 +109,9 @@
             removeHours(index) {
                 this.$delete(this.settings.hours, index)
             },
-            fetchTimezones() {
-                axios.get('/api/system/timezones')
-                .then(response => {
-                    this.timezones = response.data.data
-                })
-            },
             save() {
                 axios.post('/api/businesses/' + this.$root.business.id + '/settings', {
                     settings: {
-                        timezone: this.settings.timezone,
                         hours: JSON.stringify(this.settings.hours)
                     }
                 })
@@ -129,7 +122,7 @@
         },
 
         created() {
-            this.fetchTimezones()
+            //
         }
     }
 </script>

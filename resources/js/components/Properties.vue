@@ -66,7 +66,7 @@
                 let propertyDefinitionNames = Object.keys(this.$root.business.property_definitions)
                 let properties = _.mapValues(_.keyBy(this.properties, 'name'), 'value')
 
-                let test = propertyDefinitionNames.map(propertyDefinition => {
+                let finalProperties = propertyDefinitionNames.map(propertyDefinition => {
                     return {
                         fixed: fixedProperties.includes(propertyDefinition),
                         name: propertyDefinition,
@@ -74,17 +74,16 @@
                         value: properties[propertyDefinition],
                     }
                 })
-                console.log(test)
-                return test
 
                 // Filter by search
-                properties = filter(properties, property => {
-                    const combined = property.name.toLowerCase() + ' ' + property.value.toLowerCase()
+                finalProperties = filter(finalProperties, property => {
+                    var combined = property.name.toLowerCase() + ' '
+                    combined += property.value ? property.value.toLowerCase() : ''
                     return combined.includes(this.propertySearch)
                 })
 
                 // Sort
-                return properties.sort((propertyA, propertyB) => {
+                return finalProperties.sort((propertyA, propertyB) => {
                     if (propertyA.fixed && !propertyB.fixed) {
                         return -1
                     } else if (!propertyA.fixed && propertyB.fixed) {

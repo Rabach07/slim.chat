@@ -11,7 +11,7 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 // Pages
 Route::view('/', 'home');
@@ -33,4 +33,4 @@ Route::get('/app{any}', function () {
     $user = auth()->user();
 
     return view('app', compact('business_id', 'user'));
-})->where('any', '.*')->middleware('auth');
+})->where('any', '.*')->middleware('auth', 'verified');

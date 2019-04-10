@@ -10,10 +10,7 @@
                 <img :src="settings.logo" onerror="this.src='/images/utility/image.png'" class="w-16 h-16" />
                 <div class="p-3">
                     <div class="text-2xl text-contrast">{{ business.name }}</div>
-                    <span class="text-xs pl-1 pr-2 py-1 bg-white text-grey-darker rounded-full">
-                        <i class="fa fa-fw fa-circle text-green"></i>
-                        Available
-                    </span>
+                    <availability />
                 </div>
             </div>
         </div>
@@ -59,10 +56,11 @@
 </template>
 
 <script>
+    import Availability from './Availability'
     import Message from './Message'
 
     export default {
-        components: { Message },
+        components: { Availability, Message },
 
         props: ['app_id', 'visitor_uuid', 'business', 'settings'],
 

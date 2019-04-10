@@ -30,6 +30,9 @@ Route::get('businesses/{business}/settings/{setting}', 'BusinessSettingControlle
 Route::post('businesses/{business}/settings/logo', 'BusinessSettingController@updateLogo');
 Route::post('businesses/{business}/settings/{setting}', 'BusinessSettingController@update');
 
+// Business Online
+Route::get('businesses/{business}/availability', 'BusinessAvailabilityController@show');
+
 // PropertyDefinitions
 Route::apiResource('businesses/{business}/properties', 'PropertyDefinitionController');
 

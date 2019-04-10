@@ -41,6 +41,7 @@ class AnnounceController extends Controller
             'data' => [
                 'uuid'     => $visitor->uuid,
                 'business' => [
+                    'id'   => $business->id,
                     'name' => $business->name,
                 ],
                 'settings' => [

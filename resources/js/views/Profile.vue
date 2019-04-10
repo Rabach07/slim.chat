@@ -14,8 +14,18 @@
                     </div>
                     <div class="group">
                         <label>Email</label>
-                        <input v-model="user.email" type="email" class="input">
-                        <p>If you change your email you'll need to re-verify it.</p>
+                        <div class="flex">
+                            <div class="flex-1 mr-2">
+                                <input v-model="user.email" type="email" class="input">
+                            </div>
+                            <div>
+                                <button v-if="user.email_verified_at" class="button green" disabled>
+                                    <i class="fas fa-check-circle"></i>
+                                    Verified
+                                </button>
+                            </div>
+                        </div>
+                        <p>If you change your email you'll need to verify it again.</p>
                     </div>
                     <div class="group">
                         <div class="flex">
@@ -46,12 +56,7 @@
 
         data() {
             return {
-                user: {
-                    name: null,
-                    email: null,
-                    password: null,
-                    password_confirmation: null
-                },
+                user: {},
             }
         },
 
@@ -59,22 +64,16 @@
             fetchUser() {
                 axios.get('/api/user')
                 .then(response => {
-                    this.user.name = response.data.name
-                    this.user.email = response.data.email
-                    this.user.password = null
-                    this.user.password_confirmation = null
+                    this.user = response.data.data
                 })
             },
             saveUser() {
                 axios.post('/api/user', this.user)
                 .then(response => {
-                    this.user.name = response.data.name
-                    this.user.email = response.data.email
-                    this.user.password = null
-                    this.user.password_confirmation = null
+                    this.user = response.data.data
                 })
-                .catch(error => {
-                    this.errors = error.response.data
+                .then(response => {
+                    this.$toasted.global.saved()
                 })
             }
         },

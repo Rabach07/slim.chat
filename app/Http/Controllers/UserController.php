@@ -15,7 +15,9 @@ class UserController extends Controller
      */
     public function show()
     {
-        return auth()->user();
+        return response()->json([
+            'data' => auth()->user(),
+        ]);
     }
 
     /**
@@ -28,14 +30,16 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name'  => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,id,'.auth()->user()->id,
         ]);
 
-        auth()->user()->update($request->all());
+        auth()->user()->update($validatedData);
 
-        return auth()->user();
+        return response()->json([
+            'data' => auth()->user(),
+        ]);
     }
 
     /**
