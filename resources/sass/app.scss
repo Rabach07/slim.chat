@@ -177,6 +177,10 @@ h1, h2, h3, h4, h5, h6 {
     @apply .appearance-none .text-lg .border-4 .rounded-lg;
     @apply .bg-white;
 
+    * {
+        @apply .outline-none;
+    }
+
     &:focus {
         @apply .outline-none;
         @apply .border-green;

@@ -1,44 +1,38 @@
 <template>
     <div class="flex flex-col h-screen">
         <div class="flex-no-shrink border-b p-4 mt-4">
-            <h1 class="mb-0">New Auto</h1>
+            <h1 class="mb-0">New Automation</h1>
         </div>
 
         <div class="overflow-y-scroll">
-            <form class="flex p-4">
-                <div class="w-3/5 mr-4">
-                    <div class="group">
-                        <label>Action</label>
-                        <select class="input mb-1">
-                            <option>Send email</option>
-                            <option>Send chat message</option>
-                        </select>
-                        <textarea class="input" rows="5"></textarea>
-                    </div>
-
-                    <div class="actions">
-                        <button class="button green">
-                            Save Auto
-                        </button>
-                    </div>
+            <form class="w-full p-4">
+                <div class="group">
+                    <label>Name</label>
+                    <input v-model="automation.name" type="text" class="input" placeholder="Enter the automation name...">
                 </div>
+            </form>
 
-                <div class="flex-1">
+            <new-message />
+
+            <form class="flex p-4">
+                <div class="w-1/2 mr-4">
+                    <h1>Filters</h1>
+
                     <div class="group">
                         <label>Match</label>
-                        <select class="input">
-                            <option>Match all filters</option>
-                            <option>Match any filter(s)</option>
+                        <select v-model="automation.logic" class="input">
+                            <option value="and">Match all filters</option>
+                            <option value="or">Match any filter(s)</option>
                         </select>
                     </div>
 
                     <label>Filters</label>
                     <div class="group">
-                        <div v-for="(filter, index) in filters" class="input flex text-grey-darkest mb-1">
+                        <div v-for="(filter, index) in automation.filters" class="input flex text-grey-darkest mb-1">
                             <div class="flex-1">
                                 <span class="bg-grey-lighter px-1 rounded">{{ filter.property.name }}</span>
                                 <span>{{ filter.condition }}</span>
-                                <span class="bg-grey-lighter px-1 rounded">{{ filter.value }}</span>
+                                <span v-if="filter.value" class="bg-grey-lighter px-1 rounded">{{ filter.value }}</span>
                             </div>
                             <div @click="removeFilter(index)" class="ml-1 text-grey cursor-pointer">
                                 <i class="fas fa-times"></i>
@@ -125,10 +119,46 @@
                         </transition-expand>
 
                         <div v-if="!showNewFilter">
-                            <button @click="showNewFilter = true" type="button" class="button green w-full">
+                            <button @click="showNewFilter = true" type="button" class="button w-full">
                                 <i class="fas fa-filter"></i> New Filter
                             </button>
                         </div>
+                    </div>
+                </div>
+
+                <div class="flex-1">
+                    <div class="group">
+                        <label>Audience</label>
+                        <div>
+                            <img src="https://pbs.twimg.com/profile_images/1041629685363306497/f6F4dPMG_400x400.jpg" class="rounded-full w-12 h-12">
+                            <img src="https://pbs.twimg.com/profile_images/1041629685363306497/f6F4dPMG_400x400.jpg" class="rounded-full w-12 h-12">
+                            <img src="https://pbs.twimg.com/profile_images/1041629685363306497/f6F4dPMG_400x400.jpg" class="rounded-full w-12 h-12">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form class="flex p-4">
+                <div class="w-1/2 mr-4">
+                    <div class="group">
+                        <label>Schedule</label>
+                        <div class="flex">
+                            <div class="flex-1">
+                                <select class="input">
+                                    <option>Monday</option>
+                                    <option>Tuesday</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button class="button">
+                            Save Draft
+                        </button>
+                        <button @click="saveAutomation()" type="button" class="button green">
+                            Start Automation
+                        </button>
                     </div>
                 </div>
             </form>
@@ -138,15 +168,17 @@
 
 <script>
     var filter = require('lodash/filter')
+    import NewMessage from './../components/auto/NewMessage'
 
     export default {
+        components: { NewMessage },
+
         props: [''],
 
         data() {
             return {
                 propertiesSearch: '',
                 properties: [],
-                filters: [],
                 showNewFilter: false,
                 allowedConditions: {
                     text: ['is', 'is not', 'contains', 'does not contain', 'is empty', 'is anything'],
@@ -158,6 +190,13 @@
                     property: null,
                     condition: null,
                     value: null
+                },
+                automation: {
+                    name: '',
+                    active: false,
+                    message: '',
+                    logic: 'and',
+                    filters: [],
                 }
             }
         },
@@ -182,8 +221,21 @@
         },
 
         methods: {
+            saveAutomation() {
+                axios.post('/api/automations', {
+                    business_id: this.$root.business.id,
+                    name: this.automation.name,
+                    active: false,
+                    message: this.automation.message,
+                    logic: this.automation.logic,
+                    filters: this.automation.filters
+                })
+                .then(response => {
+                    this.$toasted.global.saved()
+                })
+            },
             addFilter() {
-                this.filters.push({
+                this.automation.filters.push({
                     property: this.filter.property,
                     condition: this.filter.condition,
                     value: this.filter.value
@@ -192,7 +244,7 @@
                 this.dismissNewFilter()
             },
             removeFilter(index) {
-                this.$delete(this.filters, index)
+                this.$delete(this.automation.filters, index)
             },
             dismissNewFilter() {
                 this.propertiesSearch = ''

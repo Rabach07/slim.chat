@@ -21,13 +21,13 @@ let routes = [
                 component: require('./views/People').default
             },
             {
-                path: '/app/auto',
-                name: 'auto',
-                component: require('./views/Auto').default,
+                path: '/app/automate',
+                name: 'automate',
+                component: require('./views/Automate').default,
                 children: [
                     {
-                        path: '/app/auto/new',
-                        name: 'auto.new',
+                        path: '/app/automate/new',
+                        name: 'automate.new',
                         component: require('./views/AutoNew').default
                     }
                 ]

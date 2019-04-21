@@ -1,29 +1,33 @@
 <template>
     <div class="flex">
-        <div class="flex-1 flex flex-col border-r h-screen">
-            <div class="overflow-y-scroll scrolling-touch flex">
-                <div class="flex flex-col w-1/4 border-r">
+        <div class="flex-1 flex flex-col h-screen">
+            <div class="overflow-y-scroll h-full flex">
+                <div class="w-1/4 flex flex-col border-r">
                     <div class="border-b">
                         <input type="text" class="focus:outline-none w-full p-4 leading-loose" placeholder="Search...">
                     </div>
                     <div class="p-2 overflow-y-scroll">
                         <div class="p-2">
-                            <router-link :to="{ name: 'auto.new' }">
+                            <router-link :to="{ name: 'automate.new' }">
                                 <button class="button green w-full">
                                     <i class="fas fa-fw fa-bolt"></i>
-                                    New Auto
+                                    New Automation
                                 </button>
                             </router-link>
                         </div>
-                        <div v-for="auto in autos" class="flex p-2 select-none" style="min-height: 110px;">
+                        <div v-for="automation in automations" class="flex p-2 select-none" style="min-height: 110px;">
                             <div class="flex-1 flex flex-col border-4 rounded-lg overflow-hidden hover:border-green cursor-pointer">
                                 <div class="flex-1 p-2">
-                                    <h3 class="m-0">{{ auto }}</h3>
+                                    <h3 class="m-0">{{ automation.name }}</h3>
                                 </div>
                                 <div class="flex bg-grey-light p-2 pb-1">
-                                    <div class="flex-1 text-green font-bold">
+                                    <div v-if="automation.active" class="flex-1 text-green font-bold">
                                         <i class="fas fa-circle"></i> Active
                                     </div>
+                                    <div v-if="!automation.active" class="flex-1 font-bold">
+                                        <i class="fas fa-circle"></i> Inactive
+                                    </div>
+
                                     <div class="flex">
                                         <div class="ml-4">
                                             <i class="fas fa-hand-pointer"></i> 43
@@ -52,22 +56,25 @@
 
         data() {
             return {
-                autos: [
-                    '1 day after signup send a welcome email',
-                    'At end of trial period send email encouraging to subscribe',
-                    'Onboarding: Feature 1',
-                    'Onboarding: Feature 2',
-                    'Onboarding: Feature 3',
-                ]
+                automations: []
             }
         },
 
-        computed: {
-            //
+        methods: {
+            fetchAutomations() {
+                axios.get('/api/automations', {
+                    params: {
+                        business_id: this.$root.business.id
+                    }
+                })
+                .then(response => {
+                    this.automations = response.data.data
+                })
+            }
         },
 
-        methods: {
-            //
+        created() {
+            this.fetchAutomations()
         }
     }
 </script>

@@ -30,10 +30,10 @@
                 People
             </div>
         </router-link>
-        <router-link :to="{ name: 'auto' }">
+        <router-link :to="{ name: 'automate' }">
             <div class="mb-8 cursor-pointer">
                 <i class="fas fa-2x fa-bolt mb-2"></i><br>
-                Auto
+                Automate
             </div>
         </router-link>
         <router-link :to="{ name: 'settings' }">

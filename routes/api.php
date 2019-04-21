@@ -51,6 +51,9 @@ Route::apiResource('messages', 'MessageController');
 // Visitor Announcement
 Route::post('announce', 'AnnounceController@announce');
 
+// Automations
+Route::apiResource('automations', 'AutomationController');
+
 // System
 Route::get('system/timezones', function () {
     return response()->json(['data' => DateTimeZone::listIdentifiers()]);
