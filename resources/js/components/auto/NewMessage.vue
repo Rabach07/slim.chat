@@ -1,157 +1,138 @@
 <template>
-    <form class="flex p-4">
-        <div class="w-1/2 mr-4">
-            <h1>Message</h1>
+    <div>
+        <editor-menu-bar v-if="editable" :editor="editor" class="mb-1">
+            <div class="menubar" slot-scope="{ commands, isActive }">
+                <button
+                    type="button"
+                    class="button"
+                    @click="commands.variable"
+                >
+                    <i class="fas fa-plus-square"></i>
+                    Variable
+                </button>
 
-            <div class="group">
-                <label>Subject</label>
-                <input type="text" class="input mb-1" placeholder="Enter subject...">
+                <button
+                    type="button"
+                    class="button"
+                    :class="{ 'is-active': isActive.bold() }"
+                    @click="commands.bold"
+                >
+                    <i class="fas fa-bold"></i>
+                </button>
 
-                <label>Message</label>
-                <editor-menu-bar :editor="editor" class="mb-1">
-                    <div class="menubar" slot-scope="{ commands, isActive }">
-                        <button
-                            type="button"
-                            class="button"
-                            @click="commands.variable"
-                        >
-                            <i class="fas fa-plus-square"></i>
-                            Variable
-                        </button>
+                <button
+                    type="button"
+                    class="button"
+                    :class="{ 'is-active': isActive.italic() }"
+                    @click="commands.italic"
+                >
+                    <i class="fas fa-italic"></i>
+                </button>
 
-                        <button
-                            type="button"
-                            class="button"
-                            :class="{ 'is-active': isActive.bold() }"
-                            @click="commands.bold"
-                        >
-                            <i class="fas fa-bold"></i>
-                        </button>
+                <button
+                    type="button"
+                    class="button"
+                    :class="{ 'is-active': isActive.strike() }"
+                    @click="commands.strike"
+                >
+                    <i class="fas fa-strikethrough"></i>
+                </button>
 
-                        <button
-                            type="button"
-                            class="button"
-                            :class="{ 'is-active': isActive.italic() }"
-                            @click="commands.italic"
-                        >
-                            <i class="fas fa-italic"></i>
-                        </button>
+                <button
+                    type="button"
+                    class="button"
+                    :class="{ 'is-active': isActive.underline() }"
+                    @click="commands.underline"
+                >
+                    <i class="fas fa-underline"></i>
+                </button>
 
-                        <button
-                            type="button"
-                            class="button"
-                            :class="{ 'is-active': isActive.strike() }"
-                            @click="commands.strike"
-                        >
-                            <i class="fas fa-strikethrough"></i>
-                        </button>
+                <button
+                    type="button"
+                    class="button"
+                    :class="{ 'is-active': isActive.code() }"
+                    @click="commands.code"
+                >
+                    <i class="fas fa-code"></i>
+                </button>
 
-                        <button
-                            type="button"
-                            class="button"
-                            :class="{ 'is-active': isActive.underline() }"
-                            @click="commands.underline"
-                        >
-                            <i class="fas fa-underline"></i>
-                        </button>
+                <button
+                    type="button"
+                    class="button"
+                    :class="{ 'is-active': isActive.heading({ level: 1 }) }"
+                    @click="commands.heading({ level: 1 })"
+                >
+                    <i class="fas fa-heading"></i>1
+                </button>
 
-                        <button
-                            type="button"
-                            class="button"
-                            :class="{ 'is-active': isActive.code() }"
-                            @click="commands.code"
-                        >
-                            <i class="fas fa-code"></i>
-                        </button>
+                <button
+                    type="button"
+                    class="button"
+                    :class="{ 'is-active': isActive.heading({ level: 2 }) }"
+                    @click="commands.heading({ level: 2 })"
+                >
+                    <i class="fas fa-heading"></i>2
+                </button>
 
-                        <button
-                            type="button"
-                            class="button"
-                            :class="{ 'is-active': isActive.heading({ level: 1 }) }"
-                            @click="commands.heading({ level: 1 })"
-                        >
-                            <i class="fas fa-heading"></i>1
-                        </button>
+                <button
+                    type="button"
+                    class="button"
+                    :class="{ 'is-active': isActive.heading({ level: 3 }) }"
+                    @click="commands.heading({ level: 3 })"
+                >
+                    <i class="fas fa-heading"></i>3
+                </button>
 
-                        <button
-                            type="button"
-                            class="button"
-                            :class="{ 'is-active': isActive.heading({ level: 2 }) }"
-                            @click="commands.heading({ level: 2 })"
-                        >
-                            <i class="fas fa-heading"></i>2
-                        </button>
+                <button
+                    type="button"
+                    class="button"
+                    :class="{ 'is-active': isActive.bullet_list() }"
+                    @click="commands.bullet_list"
+                >
+                    <i class="fas fa-list-ul"></i>
+                </button>
 
-                        <button
-                            type="button"
-                            class="button"
-                            :class="{ 'is-active': isActive.heading({ level: 3 }) }"
-                            @click="commands.heading({ level: 3 })"
-                        >
-                            <i class="fas fa-heading"></i>3
-                        </button>
+                <button
+                    type="button"
+                    class="button"
+                    :class="{ 'is-active': isActive.ordered_list() }"
+                    @click="commands.ordered_list"
+                >
+                    <i class="fas fa-list-ol"></i>
+                </button>
 
-                        <button
-                            type="button"
-                            class="button"
-                            :class="{ 'is-active': isActive.bullet_list() }"
-                            @click="commands.bullet_list"
-                        >
-                            <i class="fas fa-list-ul"></i>
-                        </button>
+                <button
+                    type="button"
+                    class="button"
+                    :class="{ 'is-active': isActive.blockquote() }"
+                    @click="commands.blockquote"
+                >
+                    <i class="fas fa-quote-right"></i>
+                </button>
 
-                        <button
-                            type="button"
-                            class="button"
-                            :class="{ 'is-active': isActive.ordered_list() }"
-                            @click="commands.ordered_list"
-                        >
-                            <i class="fas fa-list-ol"></i>
-                        </button>
+                <button
+                    type="button"
+                    class="button"
+                    @click="commands.undo"
+                >
+                    <i class="fas fa-undo"></i>
+                </button>
 
-                        <button
-                            type="button"
-                            class="button"
-                            :class="{ 'is-active': isActive.blockquote() }"
-                            @click="commands.blockquote"
-                        >
-                            <i class="fas fa-quote-right"></i>
-                        </button>
-
-                        <button
-                            type="button"
-                            class="button"
-                            @click="commands.undo"
-                        >
-                            <i class="fas fa-undo"></i>
-                        </button>
-
-                        <button
-                            type="button"
-                            class="button"
-                            @click="commands.redo"
-                        >
-                            <i class="fas fa-redo"></i>
-                        </button>
-                    </div>
-                </editor-menu-bar>
-
-                <div class="input">
-                    <editor-content :editor="editor" />
-                </div>
-
+                <button
+                    type="button"
+                    class="button"
+                    @click="commands.redo"
+                >
+                    <i class="fas fa-redo"></i>
+                </button>
             </div>
+        </editor-menu-bar>
+
+        <div class="input">
+            <editor-content :editor="editor" />
         </div>
 
-        <div class="flex-1">
-            <div class="group">
-                <label>Preview</label>
-                <div>
-                    <strong>Subject: </strong>
-                </div>
-            </div>
-        </div>
-    </form>
+    </div>
 </template>
 
 <script>
@@ -184,7 +165,7 @@
             EditorMenuBar
         },
 
-        props: [''],
+        props: ['value', 'editable'],
 
         data() {
             return {
@@ -208,10 +189,11 @@
                         new History(),
                         new VariableNode(),
                     ],
-                    content: `
-                        <h1>Yay Headlines!</h1>
-                        <p>All these <strong>cool tags</strong> are working now.</p>
-                    `,
+                    editable: this.editable,
+                    content: this.value,
+                    onUpdate: ({ getHTML, getJSON }) => {
+                        this.$emit('input', getHTML())
+                    }
                 }),
             }
         },

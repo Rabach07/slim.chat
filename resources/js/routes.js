@@ -26,6 +26,12 @@ let routes = [
                 component: require('./views/Automate').default,
                 children: [
                     {
+                        path: '/app/automate/:automationId',
+                        name: 'automate.show',
+                        component: require('./components/AutomationDetail').default,
+                        props: true
+                    },
+                    {
                         path: '/app/automate/new',
                         name: 'automate.new',
                         component: require('./views/AutoNew').default
@@ -42,9 +48,14 @@ let routes = [
                 component: require('./views/Settings').default,
                 children: [
                     {
-                        path: 'data',
+                        path: 'properties',
                         name: 'settings',
-                        component: require('./views/settings/Data').default
+                        component: require('./views/settings/Properties').default
+                    },
+                    {
+                        path: 'import',
+                        name: 'settings.data.import',
+                        component: require('./views/settings/Import').default
                     },
                     {
                         path: 'general',

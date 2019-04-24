@@ -71,7 +71,7 @@
                             </a>
                         </li>
                         <li class="p-2">
-                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline">
+                            <a href="{{ route('pricing') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline">
                                 Pricing
                             </a>
                         </li>

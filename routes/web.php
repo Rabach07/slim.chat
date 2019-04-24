@@ -15,6 +15,7 @@ Auth::routes(['verify' => true]);
 
 // Pages
 Route::view('/', 'home');
+Route::view('pricing', 'pricing')->name('pricing');
 
 // Catch post-login/register
 Route::get('/home', function () {

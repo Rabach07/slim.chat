@@ -1,6 +1,12 @@
 <template>
     <div class="flex h-screen overflow-hidden">
         <div class="w-1/5 border-r">
+            <div class="border-b p-4 mt-4">
+                <div class="flex items-baseline">
+                    <h1 class="mb-0">Conversations</h1>
+                </div>
+            </div>
+
             <conversations />
         </div>
 

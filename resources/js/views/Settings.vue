@@ -5,9 +5,17 @@
                 <h1 class="mb-0">Settings</h1>
             </div>
             <div id="settings-navigation" class="overflow-y-scroll">
+                <div class="py-1 px-4 w-full bg-grey-dark text-white font-semibold">
+                    <i class="fas fa-fw fa-window-restore"></i> Data
+                </div>
                 <router-link :to="{ name: 'settings' }">
                     <div class="p-4 border-b hover:bg-grey-lighter cursor-pointer">
                         Properties
+                    </div>
+                </router-link>
+                <router-link :to="{ name: 'settings.data.import' }">
+                    <div class="p-4 border-b hover:bg-grey-lighter cursor-pointer">
+                        Import
                     </div>
                 </router-link>
                 <div class="py-1 px-4 w-full bg-grey-dark text-white font-semibold">
