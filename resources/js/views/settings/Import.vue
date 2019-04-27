@@ -73,7 +73,15 @@
 
                 <form v-if="stage.current == 3">
                     <div class="alert info">
-                        Select and classify the properties to be imported.
+                        Select and classify the properties to be imported. If you choose to drop a property it will not be imported.
+                    </div>
+
+                    <div v-if="duplicates.length" class="alert warning">
+                        <strong><i class="fas fa-exclamation-triangle"></i> Duplicate Properties</strong>
+                        There are multiple properties with the following name<span v-if="duplicates.length >= 2">s</span>:
+                        <span v-for="(duplicate, index) in duplicates">
+                            {{ duplicate }}<span v-if="index + 1 < duplicates.length">,</span><span v-else>.</span>
+                        </span>
                     </div>
 
                     <div class="group border-4 rounded-lg">
@@ -83,21 +91,30 @@
                                     <th>Original</th>
                                     <th>Formatted</th>
                                     <th>Type</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(property, index) in properties">
                                     <td>{{ property.original }}</td>
-                                    <td>
+                                    <td style="padding: 5px !important;">
                                         <input type="text" class="input" v-model="properties[index].parsed">
                                     </td>
-                                    <td>
+                                    <td style="padding: 5px !important;">
                                         <select v-model="properties[index].type" class="input">
                                             <option>Text</option>
                                             <option>Number</option>
                                             <option>Boolean</option>
                                             <option>Date</option>
                                         </select>
+                                    </td>
+                                    <td style="padding: 5px !important;">
+                                        <button @click="properties[index].keep = false" v-if="properties[index].keep" class="button red" type="button">
+                                            <i class="fas fa-fw fa-times"></i> Drop
+                                        </button>
+                                        <button @click="properties[index].keep = true" v-if="!properties[index].keep" class="button green" type="button">
+                                            <i class="fas fa-fw fa-check"></i> Restore
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -146,6 +163,24 @@
                     complete: false
                 },
                 properties: []
+            }
+        },
+
+        computed: {
+            duplicates() {
+                var propertyNames = _.filter(this.properties, property => {
+                    return property.keep
+                })
+                propertyNames = _.map(propertyNames, 'parsed')
+
+                var duplicates = []
+                for (var i = 0; i < propertyNames.length - 1; i++) {
+                    if (propertyNames[i + 1] == propertyNames[i]) {
+                        duplicates.push(propertyNames[i])
+                    }
+                }
+
+                return duplicates
             }
         },
 

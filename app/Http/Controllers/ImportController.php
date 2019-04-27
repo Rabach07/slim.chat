@@ -63,6 +63,7 @@ class ImportController extends Controller
                 'original' => $header,
                 'parsed'   => str_replace('-', '_', Str::slug($header)),
                 'type'     => 'Text',
+                'keep'     => true,
             ]);
         }
 
