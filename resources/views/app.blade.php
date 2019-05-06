@@ -28,7 +28,7 @@
         };
     </script>
 </head>
-<body>
+<body class="m-0 h-screen" style="overscroll-behavior: none;">
     <div id="app">
         <router-view v-if="ready"></router-view>
     </div>
