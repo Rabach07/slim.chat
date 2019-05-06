@@ -1,5 +1,5 @@
 <template>
-    <div @click="$bus.$emit('automationSelected', automation)" class="flex-1 flex flex-col border-4 rounded-lg overflow-hidden hover:border-green cursor-pointer">
+    <div class="flex-1 flex flex-col border-4 rounded-lg overflow-hidden hover:border-green cursor-pointer">
         <div class="flex-1 p-2">
             <h3 class="m-0">{{ automation.name }}</h3>
         </div>

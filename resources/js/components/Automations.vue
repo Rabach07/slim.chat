@@ -19,6 +19,7 @@
             <router-link v-for="automation in automationsFiltered"
                 :to="{ name: 'automate.show', params: { automationId: automation.id }}"
                 :key="'automation'+automation.id"
+                class="no-underline"
             >
                 <automation
                     :automation="automation"
