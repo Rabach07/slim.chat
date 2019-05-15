@@ -14,8 +14,11 @@
 Auth::routes(['verify' => true]);
 
 // Pages
-Route::view('/', 'home');
+Route::view('/', 'home')->name('home');
+Route::view('why', 'why')->name('why');
 Route::view('pricing', 'pricing')->name('pricing');
+Route::view('blog', 'blog')->name('blog');
+Route::view('solutions', 'solutions')->name('solutions');
 
 // Catch post-login/register
 Route::get('/home', function () {

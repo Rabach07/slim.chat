@@ -52,7 +52,7 @@
         <nav class="bg-white text-green">
             <div class="container flex mx-auto">
                 <div class="flex-1 py-1">
-                    <a href="{{ url('/') }}" class="flex items-end inline-block py-3 px-2 text-2xl text-green hover:text-green focus:text-green font-bold no-underline">
+                    <a href="{{ route('home') }}" class="flex items-end inline-block py-3 px-2 text-2xl text-green hover:text-green focus:text-green font-bold no-underline">
                         <div class="mr-3">
                             <img src="/images/logo.png" class="block w-8 h-8">
                         </div>
@@ -66,8 +66,13 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="list-reset flex">
                         <li class="p-2">
-                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline no-underline">
-                                Why Slim Chat?
+                            <a href="{{ route('solutions') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline no-underline">
+                                Solutions
+                            </a>
+                        </li>
+                        <li class="p-2">
+                            <a href="{{ route('why') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline no-underline">
+                                Why Slim Chat
                             </a>
                         </li>
                         <li class="p-2">
@@ -76,15 +81,15 @@
                             </a>
                         </li>
                         <li class="p-2">
-                            <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline no-underline">
+                            <a href="{{ route('blog') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline no-underline">
                                 Blog
                             </a>
                         </li>
-                        <li class="p-2">
+                        {{-- <li class="p-2">
                             <a href="{{ route('login') }}" class="inline-block py-3 px-2 text-lg text-grey-darkest hover:underline no-underline">
                                 Developers
                             </a>
-                        </li>
+                        </li> --}}
                         @guest
                             <li class="p-2">
                                 <a href="{{ route('login') }}" class="inline-block p-3 text-lg text-grey-darkest hover:underline no-underline">
@@ -100,7 +105,7 @@
                             <li class="p-2">
                                 <a href="{{ url('/app') }}" class="button blue">
                                     <i class="fas fa-fw fa-user-circle"></i>
-                                    {{ Auth::user()->name }}
+                                    Dashboard
                                 </a>
                             </li>
                                 {{-- <a class="dropdown-item" href="{{ route('logout') }}"
