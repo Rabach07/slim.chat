@@ -4,6 +4,8 @@ Note: Slim Chat is a work in progress.
 
 An intuitive, real-time chat platform designed for independent makers and start-ups.
 
+This video demonstrates some of the functionality of the interface: [Download (1.5mb)](https://raw.githubusercontent.com/jackcruden/slim.chat/master/preview/preview_video.mp4)
+
 ## Screenshots
 
 Showing a conversation in the chat window.
